@@ -1,0 +1,103 @@
+/* General Styles */
+main {
+    display: flex;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  aside {
+    background: #ecebda;
+    padding: 10px;
+    width: 15%;
+    height: 100vh;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+    flex-shrink: 0; /* Prevent the sidebar from shrinking */
+  }  
+  
+  aside a {
+    display: block;
+    padding: 10px 0;
+    font-size: 1.1em;
+  }
+  
+  aside a:hover {
+    background-color: #eee;
+  }  
+
+  .menu {
+    list-style: none;
+  }
+  
+  .menu li {
+    padding: 5px 0;
+  }
+  
+  .menu li a {
+    display: block;
+  }
+  
+  .menu > li > ul {
+    display: none;
+    padding-left: 15px;
+  }
+  
+  .menu > li:hover > ul {
+    display: block;
+  }
+  
+  .menu ul li {
+    padding: 3px 0;
+  }
+  
+  .menu ul li a {
+    font-size: 0.9em;
+  }  
+  
+  .content {
+    width: 85%;
+    padding: 20px;
+    flex: 1;
+  }
+
+  .edit-link {
+    font-size: 0.8em;
+    font-weight: normal;
+    margin-left: 10px;
+    text-decoration: none;
+  }  
+  
+  .markdown-body {
+    font-size: 1.1em;
+    line-height: 1.7;
+  }
+  
+  .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+    margin-bottom: 1em;
+  }
+  
+  .markdown-body pre {
+    background: #f4f4f4;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }  
