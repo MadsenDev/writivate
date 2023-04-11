@@ -9,20 +9,22 @@
   <body>
 
   <?php include 'header.php'; ?>
+  <?php include 'config.php'; ?>
 
 <main>
   <?php include 'sidebar.php'; ?>
   <div class="content">
     <h1>Edit Guide</h1>
     <?php
-      $dir = 'guides';
       $id = $_GET['id'];
-      $filepath = "$dir/$id";
-      $content = file_get_contents($filepath);
-      $parts = explode('/', $id);
-      $filename = end($parts);
-      $category = count($parts) > 1 ? $parts[0] : '';
-      $title = str_replace('-', ' ', ucfirst(pathinfo($filename, PATHINFO_FILENAME)));
+      $stmt = $conn->prepare("SELECT * FROM guides WHERE id = ?");
+      $stmt->bind_param("i", $id);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $row = $result->fetch_assoc();
+      $title = $row['title'];
+      $category_id = $row['category_id'];
+      $content = $row['content'];
     ?>
     <form method="POST" action="update_guide.php">
       <input type="hidden" name="id" value="<?php echo $id; ?>">
@@ -32,23 +34,19 @@
       </div>
       <div class="form-group">
         <label for="guide-category">Category:</label>
-        <select id="guide-category" name="category" class="form-control">
-          <?php
-            $categories = array('');
-            $files = scandir($dir);
-            foreach ($files as $file) {
-              if ($file != '.' && $file != '..') {
-                if (is_dir("$dir/$file")) {
-                  array_push($categories, $file);
-                }
-              }
-            }
-            foreach ($categories as $cat) {
-              $selected = $cat === $category ? 'selected' : '';
-              echo "<option value=\"$cat\" $selected>$cat</option>";
-            }
-          ?>
-        </select>
+        <select id="guide-category" name="category_id" class="form-control">
+  <?php
+    include 'config.php';
+    $stmt = $conn->prepare("SELECT * FROM categories");
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+      $selected = $row['id'] == $category ? 'selected' : '';
+      echo "<option value=\"{$row['id']}\" $selected>{$row['name']}</option>";
+    }
+  ?>
+</select>
       </div>
       <div class="form-group">
         <label for="guide-content">Content:</label>

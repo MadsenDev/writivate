@@ -2,32 +2,33 @@
 <html>
   <head>
     <title>Wiki - Categories</title>
-    <link rel="stylesheet" type="text/css" href="styles/main.css">
-    <link rel="stylesheet" type="text/css" href="styles/header.css">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
   </head>
   <body>
+  <?php include 'admin_sidebar.php'; ?>
     <?php
-      session_start();
-      include 'header.php';
-      include 'config.php';
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+      //session_start();
+      include '../config.php';
 
-      // Fetch the user's rank from the database
-      $user_rank = '';
-      if (isset($_SESSION['user_id'])) {
-        $user_id = $_SESSION['user_id'];
-        $stmt = $conn->prepare("SELECT rank FROM users WHERE id = ?");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-          $row = $result->fetch_assoc();
-          $user_rank = $row['rank'];
-        }
-      }
+      // Fetch the user's rank number from the database
+$user_rank_number = 0;
+if (isset($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+  $stmt = $conn->prepare("SELECT rank_number FROM users INNER JOIN ranks ON users.rank_id = ranks.id WHERE users.id = ?");
+  $stmt->bind_param("i", $user_id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $user_rank_number = $row['rank_number'];
+  }
+}
 
-      if ($user_rank != 'add_edit') {
-        die("You don't have permission to access this page.");
-      }
+if ($user_rank_number < 3) {
+  die("You don't have permission to access this page.");
+}
 
       if (isset($_POST['add_category'])) {
         // Add new category
@@ -37,8 +38,8 @@
         $stmt = $conn->prepare("INSERT INTO categories (name, parent_id) VALUES (?, ?)");
         $stmt->bind_param("si", $category_name, $parent_id);
         $stmt->execute();
-
-        header('Location: categories.php');
+        
+        header('Location: add_category.php');
       }
 
       if (isset($_POST['edit_category'])) {
@@ -63,7 +64,6 @@
         $stmt->bind_param("i", $category_id);
         $stmt->execute();
         $result = $stmt->get_result();
-
         if ($result->num_rows > 0) {
           die("You can't delete this category because it has subcategories.");
         }
@@ -72,7 +72,7 @@
         $stmt->bind_param("i", $category_id);
         $stmt->execute();
 
-        header('Location: categories.php');
+        header('Location: manage_categories.php');
       }
 
       // Get all categories
@@ -82,27 +82,24 @@
     ?>
     
     <main>
-      <?php include 'sidebar.php'; ?>
       <div class="content">
-        <h1>Categories</h1>
+        <h1>Manage Categories</h1>
 
         <h2>Add Category</h2>
         <form method="POST">
           <label for="category_name">Category Name:</label>
           <input type="text" id="category_name" name="category_name" required>
           <label for="parent_id">
-                      <select id="parent_id" name="parent_id">
-            <option value="">Select parent category (optional)</option>
-            <?php
-              $stmt = $conn->prepare("SELECT * FROM categories");
-              $stmt->execute();
-              $result = $stmt->get_result();
+          <select id="parent_id" name="parent_id">
+  <option value="">Select parent category (optional)</option>
+  <?php
+    mysqli_data_seek($result, 0); // Reset the $result pointer
+    while ($row = $result->fetch_assoc()) {
+      echo "<option value=\"{$row['id']}\">{$row['name']}</option>";
+    }
+  ?>
+</select>
 
-              while ($row = $result->fetch_assoc()) {
-                echo "<option value=\"{$row['id']}\">{$row['name']}</option>";
-              }
-            ?>
-          </select>
           <button type="submit" name="add_category">Add Category</button>
         </form>
 
@@ -118,8 +115,10 @@
           </thead>
           <tbody>
           <?php
-  if (mysqli_num_rows($result) > 0) {
-    while ($row = $result->fetch_assoc()) {
+          echo "Number of rows: " . mysqli_num_rows($result); // Debugging line
+          if (mysqli_num_rows($result) > 0) {
+            mysqli_data_seek($result, 0); // Reset the $result pointer
+            while ($row = mysqli_fetch_assoc($result)) {
         $category_id = $row['id'];
         $category_name = $row['name'];
         $parent_name = $row['parent_name'];
@@ -143,6 +142,6 @@
       </div>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include '../footer.php'; ?>
   </body>
 </html>
