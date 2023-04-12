@@ -2,14 +2,15 @@
 <html>
 <head>
   <title>Wiki - Login</title>
-  <link rel="stylesheet" type="text/css" href="styles/main.css">
-  <link rel="stylesheet" type="text/css" href="styles/header.css">
+  <link rel="icon" type="image/png" href="/public/images/favicon.png">
+  <link rel="stylesheet" type="text/css" href="../public/styles/main.css">
+  <link rel="stylesheet" type="text/css" href="../public/styles/header.css">
 </head>
 <body>
-<?php include 'header.php'; ?>
+<?php include '../header.php'; ?>
 
 <main>
-    <?php include 'sidebar.php'; ?>
+    <?php include '../sidebar.php'; ?>
   <div class="content">
     <h1>Login</h1>
     <form method="POST" action="login_process.php">
@@ -26,6 +27,6 @@
   </div>
 </main>
 
-<?php include 'footer.php'; ?>
+<?php include '../footer.php'; ?>
 </body>
 </html>

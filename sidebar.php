@@ -37,7 +37,7 @@
         if (count($guides) > 0) {
           echo "<ul>";
           foreach ($guides as $guide_id => $guide_title) {
-            echo "<li><a href=\"guide.php?id=$guide_id\">$guide_title</a></li>";
+            echo "<li><a href=\"guides/guide.php?id=$guide_id\">$guide_title</a></li>";
           }
           echo "</ul>";
         }

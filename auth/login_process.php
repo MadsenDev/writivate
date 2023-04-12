@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../config.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_SESSION['rank_number'] = $row['rank_number'];
 
       // Redirect to the homepage
-      header("Location: index.php");
+      header("Location: ../index.php");
       exit();
     } else {
       die('Incorrect password');

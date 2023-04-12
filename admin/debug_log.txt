@@ -1,0 +1,3 @@
+[2023-04-12 18:20:12] POST request detected on add_category.php
+[2023-04-12 18:24:26] POST request detected on add_category.php
+[2023-04-12 18:24:26] POST data: {"category_name":"Mobile Phones","parent_id":""}

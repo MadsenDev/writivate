@@ -15,27 +15,53 @@ if (isset($_SESSION['user_id'])) {
   }
 }
 
+// Fetch parent categories and their subcategories
+$stmt = $conn->prepare("SELECT * FROM categories WHERE parent_id IS NULL");
+$stmt->execute();
+$parent_categories = $stmt->get_result();
 
+function fetch_subcategories($conn, $parent_id) {
+  $stmt = $conn->prepare("SELECT * FROM categories WHERE parent_id = ?");
+  $stmt->bind_param("i", $parent_id);
+  $stmt->execute();
+  return $stmt->get_result();
+}
 
 ?>
 
 <header>
   <div class="logo">
-    <a href="index.php"><img src="images/logo.png" alt="Wiki Logo"></a>
+    <a href="/index.php"><img src="/public/images/logo.png" alt="Wiki Logo"></a>
   </div>
   <nav>
     <ul>
-      <li><a href="index.php">Home</a></li>
+      <li><a href="/index.php">Home</a></li>
+      <?php while ($parent = $parent_categories->fetch_assoc()): ?>
+        <li>
+          <a href="/categories.php?id=<?= $parent['id'] ?>"><?= $parent['name'] ?></a>
+          <?php $subcategories = fetch_subcategories($conn, $parent['id']); ?>
+          <?php if ($subcategories->num_rows > 0): ?>
+            <ul class="submenu">
+              <?php while ($sub = $subcategories->fetch_assoc()): ?>
+                <li><a href="/categories.php?id=<?= $sub['id'] ?>"><?= $sub['name'] ?></a></li>
+              <?php endwhile; ?>
+            </ul>
+          <?php endif; ?>
+        </li>
+      <?php endwhile; ?>
       <?php
       if ($user_rank_number >= 1) {
-        echo "<li><a href=\"add_guide.php\">Add Guide</a></li>";
+        echo "<li><a href=\"/guides/add_guide.php\">Add Guide</a></li>";
+      }
+      if ($user_rank_number >= 3) {
+        echo "<li><a href=\"/admin/index.php\">Dashboard</a></li>";
       }
       ?>
       <?php if (isset($_SESSION['user_id'])): ?>
-        <li><a href="logout.php">Log Out (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a></li>
+        <li><a href="/auth/logout.php">Log Out (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a></li>
       <?php else: ?>
-        <li><a href="login.php">Login</a></li>
-        <li><a href="register.php">Register</a></li>
+        <li><a href="/auth/login.php">Login</a></li>
+        <li><a href="/auth/register.php">Register</a></li>
       <?php endif; ?>
     </ul>
   </nav>

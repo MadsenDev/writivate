@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include 'config.php';
+include '../config.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_SESSION['rank'] = $rank;
 
       // Redirect to the homepage
-      header("Location: index.php");
+      header("Location: ../index.php");
       exit();
     } else {
       // Display the error

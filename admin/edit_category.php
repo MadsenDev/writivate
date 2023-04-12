@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Wiki - Edit Category</title>
+    <link rel="icon" type="image/png" href="/public/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="css/admin.css">
 </head>
 <body>

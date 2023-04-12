@@ -1,0 +1,10 @@
+[2023-04-12 18:11:55] Script started
+[2023-04-12 18:11:55] add_category POST variable not detected
+[2023-04-12 18:13:53] Script started
+[2023-04-12 18:13:53] add_category POST variable not detected
+[2023-04-12 18:15:57] Script started
+[2023-04-12 18:15:57] add_category POST variable not detected
+[2023-04-12 18:18:04] Script started
+[2023-04-12 18:18:04] add_category POST variable not detected
+[2023-04-12 18:20:12] Script started
+[2023-04-12 18:20:12] add_category POST variable not detected

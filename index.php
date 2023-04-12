@@ -2,8 +2,9 @@
 <html>
   <head>
     <title>Wiki</title>
-    <link rel="stylesheet" type="text/css" href="styles/main.css">
-    <link rel="stylesheet" type="text/css" href="styles/header.css">
+    <link rel="icon" type="image/png" href="public/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="public/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="public/styles/header.css">
   </head>
   <body>
   <?php include 'header.php'; ?>
@@ -12,7 +13,7 @@
   <?php include 'sidebar.php'; ?>
   <div class="content">
     <?php
-    require_once 'parsedown/Parsedown.php';
+    require_once 'vendor/parsedown/Parsedown.php';
 
     $dir = 'guides';
     $filepath = "$dir/home.md";
