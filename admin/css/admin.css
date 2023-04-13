@@ -27,10 +27,16 @@
   }
   
   .sidebar-nav ul {
-    list-style: none;
-    padding: 0;
+    list-style-type: none;
     margin: 0;
-  }
+    padding: 0;
+}
+
+.sidebar-nav li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
   
   .sidebar-nav li a {
     display: block;
@@ -42,6 +48,10 @@
   .sidebar-nav li a:hover {
     background-color: #666;
   }
+
+  .nav-list {
+    list-style: none;
+}
   
   .content {
     margin-left: 200px;

@@ -34,13 +34,19 @@
       if (isset($_POST['delete_guide'])) {
         // Delete guide
         $guide_id = $_POST['guide_id'];
-
+    
+        // Delete update logs for the guide
+        $stmt = $conn->prepare("DELETE FROM guide_updates WHERE guide_id = ?");
+        $stmt->bind_param("i", $guide_id);
+        $stmt->execute();
+    
+        // Delete the guide
         $stmt = $conn->prepare("DELETE FROM guides WHERE id = ?");
         $stmt->bind_param("i", $guide_id);
         $stmt->execute();
-
+    
         header('Location: manage_guides.php');
-      }
+    }    
 
       // Get all guides
       $stmt = $conn->prepare("SELECT guides.*, categories.name as category_name, users.username as author_username FROM guides LEFT JOIN categories ON guides.category_id = categories.id LEFT JOIN users ON guides.creator_id = users.id ORDER BY id DESC");
@@ -50,9 +56,7 @@
 
     <main>
       <div class="content">
-        <h1>Manage Guides</h1>
-
-        <li><a href="add_guide.php">Add Guide</a></li>
+        <h1>Manage Guides <a href="add_guide.php">Add Guide</a></h1>
 
         <table>
           <thead>
@@ -77,7 +81,8 @@
                 // output guide data
                 echo "<tr>";
                 echo "<td>$guide_id</td>";
-                echo "<td>$guide_title</td>";
+                echo "<td><a href=\"/guide.php?id=$guide_id\">$guide_title</a></td>";
+                //echo "<td>$guide_title</td>";
                 echo "<td>$category_name</td>";
                 echo "<td>$author_username</td>";
                 echo "<td><a href=\"edit_guide.php?id=$guide_id\">Edit</a> | <form method=\"POST\"><input type=\"hidden\" name=\"guide_id\" value=\"$guide_id\"><button type=\"submit\" name=\"delete_guide\" onclick=\"return confirm('Are you sure you want to delete this guide?')\">Delete</button></form></td>";

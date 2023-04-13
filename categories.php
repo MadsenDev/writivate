@@ -75,7 +75,7 @@ $guides = array_merge($guides, fetch_subcategory_guides($conn, $category_id));
 if (count($guides) > 0) {
     echo "<ul>";
     foreach ($guides as $guide) {
-        echo "<li><a href=\"guides/guide.php?id={$guide['id']}\">{$guide['title']}</a>";
+        echo "<li><a href=\"/guide.php?id={$guide['id']}\">{$guide['title']}</a>";
 if (!empty($guide['category_name'])) {
     echo " ({$guide['category_name']})";
 }

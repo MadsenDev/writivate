@@ -33,7 +33,7 @@
     <img src="../images/logo.png" alt="Logo">
   </div>
   <nav class="sidebar-nav">
-    <ul>
+    <ul class="nav-list">
       <li>
         <a href="manage_categories.php">
           <i class="fas fa-folder"></i> Manage Categories

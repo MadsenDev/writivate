@@ -9,7 +9,7 @@
 	<?php include 'admin_sidebar.php'; ?>
 	<main>
 		<div class="content">
-			<h1>Manage Users</h1>
+			<h1>Manage Users <a href="add_user.php">Add User</a></h1>
 			<table>
 				<thead>
 					<tr>
@@ -43,7 +43,7 @@
 								echo "<td>$username</td>";
 								echo "<td>$email</td>";
 								echo "<td>$rank_title</td>";
-								echo "<td><a href=\"edit_single_user.php?id=$user_id\">Edit</a></td>";
+								echo "<td><a href=\"edit_single_user.php?id=$user_id\">Edit</a> | <a href=\"delete_user.php?id=$user_id\" onclick=\"return confirm('Are you sure you want to delete this user?');\">Delete</a></td>";
 								echo "</tr>";
 							}
 						} else {

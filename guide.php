@@ -2,18 +2,18 @@
 <html>
   <head>
     <title>Wiki</title>
-    <link rel="icon" type="image/png" href="/public/images/favicon.png">
-    <link rel="stylesheet" type="text/css" href="../public/styles/main.css">
-    <link rel="stylesheet" type="text/css" href="../public/styles/header.css">
-    <link rel="stylesheet" href="../vendor/prism/prism.css">
+    <link rel="icon" type="image/png" href="public/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="public/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="public/styles/header.css">
+    <link rel="stylesheet" href="vendor/prism/prism.css">
   </head>
   <body>
   <?php
   error_reporting(E_ALL); ini_set('display_errors', 1);
-  include '/header.php';
-  include '/config.php';
-  include '/functions.php';
-  include '/vendor/parsedown/Parsedown.php';
+  include 'header.php';
+  include 'config.php';
+  include 'functions.php';
+  include 'vendor/parsedown/Parsedown.php';
 
   // Fetch the user's rank number from the database
 $user_rank_number = 0;
@@ -70,18 +70,46 @@ if (isset($_GET['id'])) {
 
   $parsedown = new Parsedown();
   $html = $parsedown->text($content);
+
+  // Add this after fetching the guide data
+$stmt = $conn->prepare("SELECT guide_updates.*, users.username as updater_username FROM guide_updates INNER JOIN users ON guide_updates.updater_id = users.id WHERE guide_updates.guide_id = ? ORDER BY guide_updates.updated_at DESC");
+$stmt->bind_param("i", $guide_id);
+$stmt->execute();
+$updates_result = $stmt->get_result();
+
   ?>
 
   <main>
-    <?php include '/sidebar.php'; ?>
+    <?php include 'sidebar.php'; ?>
     <div class="content">
       <h1><?php echo $header; ?></h1>
       <p style='margin-top: -10px; font-size: 14px; font-style: italic;'>Created by: <?php echo $creator_username; ?></p>
       <p style='margin-top: -10px; font-size: 14px; font-style: italic;'>Category: <?php echo $category_path; ?></p>
       <div><?php echo $html; ?></div>
+      <div class="updates-list">
+  <h4>Update History:</h4>
+  <ul>
+    <?php while ($update_row = $updates_result->fetch_assoc()) : ?>
+      <li>
+        <?php
+          $update_date = date("F j, Y, g:i a", strtotime($update_row['updated_at']));
+          echo "Updated on {$update_date} by {$update_row['updater_username']}";
+        ?>
+      </li>
+    <?php endwhile; ?>
+    <li>
+      <?php
+        $created_date = date("F j, Y, g:i a", strtotime($row['created_at']));
+        echo "Created on {$created_date} by {$creator_username}";
+      ?>
+    </li>
+  </ul>
+</div>
+
     </div>
+    
   </main>
-  <?php include '/footer.php'; ?>
-  <script src="/vendor/prism/prism.js"></script>
+  <?php include 'footer.php'; ?>
+  <script src="vendor/prism/prism.js"></script>
   </body>
 </html>

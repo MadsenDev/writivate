@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   // Insert the update information into the guide_updates table
-  $stmt = $conn->prepare("INSERT INTO guide_updates (guide_id, updater_id) VALUES (?, ?)");
+  $stmt = $conn->prepare("INSERT INTO guide_updates (guide_id, updater_id, updated_at) VALUES (?, ?, NOW())");
   $stmt->bind_param("ii", $id, $updater_id);
   $stmt->execute();
 

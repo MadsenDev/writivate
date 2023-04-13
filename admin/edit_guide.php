@@ -5,12 +5,13 @@
     <link rel="icon" type="image/png" href="/public/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="css/admin.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/0UzjzpxpwPRzKzggrD17l5ovvhF+kcJ6Y6F5/z" crossorigin="anonymous">
   </head>
   <body>
   <?php include '../config.php'; ?>
+  <?php include 'admin_sidebar.php'; ?>
 
 <main>
-  <?php include 'admin_sidebar.php'; ?>
   <div class="content">
     <h1>Edit Guide</h1>
     <?php
@@ -40,7 +41,7 @@
     $result = $stmt->get_result();
 
     while ($row = $result->fetch_assoc()) {
-      $selected = $row['id'] == $category ? 'selected' : '';
+      $selected = $row['id'] == $category_id ? 'selected' : '';
       echo "<option value=\"{$row['id']}\" $selected>{$row['name']}</option>";
     }
   ?>

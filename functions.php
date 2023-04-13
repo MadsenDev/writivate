@@ -58,4 +58,46 @@
     }
     return $path;
   }
+
+
+function get_category_id_by_name($conn, $name) {
+  $stmt = $conn->prepare("SELECT id FROM categories WHERE name = ?");
+  $stmt->bind_param("s", $name);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $row = $result->fetch_assoc();
+  return $row ? $row['id'] : null;
+}
+
+function get_newest_guides_by_category($conn, $category_id, $limit) {
+  $category_ids = get_all_child_category_ids($conn, $category_id);
+  array_push($category_ids, $category_id);
+  $placeholders = implode(',', array_fill(0, count($category_ids), '?'));
+
+  // Merge the $category_ids array with the $limit value
+  $params = array_merge($category_ids, [$limit]);
+
+  $stmt = $conn->prepare("SELECT * FROM guides WHERE category_id IN ($placeholders) ORDER BY created_at DESC LIMIT ?");
+  
+  // Use the $params array with the unpacking operator
+  $types = str_repeat("i", count($params));
+  $stmt->bind_param($types, ...$params);
+  
+  $stmt->execute();
+  return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+function get_all_child_category_ids($conn, $parent_id) {
+  $stmt = $conn->prepare("SELECT id FROM categories WHERE parent_id = ?");
+  $stmt->bind_param("i", $parent_id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $child_category_ids = [];
+  while ($row = $result->fetch_assoc()) {
+    $child_category_ids[] = $row['id'];
+    $child_category_ids = array_merge($child_category_ids, get_all_child_category_ids($conn, $row['id']));
+  }
+  return $child_category_ids;
+}
+  
 ?>
