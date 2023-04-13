@@ -1,21 +1,3 @@
-<?php
-function build_category_tree($categories, $parent_id = 0) {
-  $tree = [];
-
-  foreach ($categories as $category) {
-      if ($category['parent_id'] == $parent_id) {
-          $children = build_category_tree($categories, $category['id']);
-          if ($children) {
-              $category['children'] = $children;
-          }
-          $tree[] = $category;
-      }
-  }
-
-  return $tree;
-}
-?>
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -32,6 +14,7 @@ function build_category_tree($categories, $parent_id = 0) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
       //session_start();
+      include '../functions.php';
       include '../config.php';
 
       // Fetch the user's rank number from the database
@@ -84,20 +67,6 @@ if ($user_rank_number < 3) {
 
         header('Location: manage_categories.php');
       }
-
-      function generateCategoryOptions($categories, $parent_id = null, $indent = "")
-{
-    $options = "";
-
-    foreach ($categories as $category) {
-        if ($category['parent_id'] == $parent_id) {
-            $options .= "<option value=\"{$category['id']}\">{$indent}{$category['name']}</option>";
-            $options .= generateCategoryOptions($categories, $category['id'], $indent . "&emsp;");
-        }
-    }
-
-    return $options;
-}
 
 
       // Get all categories
