@@ -37,7 +37,7 @@ if (mysqli_num_rows($result) > 0) {
     $stmt->free_result();
   }
 
-  header("Location: guide.php?id=$stmt->insert_id");
+  header("Location: manage_guides.php");
   exit();
 }
 ?>

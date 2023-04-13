@@ -28,4 +28,34 @@
 
         return $options;
     }
+
+    function insertGuideView($guide_id, $user_id) {
+        global $conn;
+        $stmt = $conn->prepare("INSERT INTO guide_views (guide_id, user_id, view_time) VALUES (?, ?, NOW())");
+        $stmt->bind_param("ii", $guide_id, $user_id);
+        $stmt->execute();
+        return $conn->insert_id;
+      }
+      
+      function updateGuideViewDuration($view_id, $duration) {
+        global $conn;
+        $stmt = $conn->prepare("UPDATE guide_views SET duration = ? WHERE id = ?");
+        $stmt->bind_param("di", $duration, $view_id);
+        $stmt->execute();
+      }                    
+      
+
+  function get_full_category_path($conn, $category_id) {
+    $path = "";
+    while ($category_id != NULL) {
+      $stmt = $conn->prepare("SELECT * FROM categories WHERE id = ?");
+      $stmt->bind_param("i", $category_id);
+      $stmt->execute();
+      $category = $stmt->get_result()->fetch_assoc();
+      $category_name = $category['name'];
+      $category_id = $category['parent_id'];
+      $path = $category_name . ($path ? " > " . $path : "");
+    }
+    return $path;
+  }
 ?>

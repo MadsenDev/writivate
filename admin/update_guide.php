@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->bind_param("ii", $id, $updater_id);
   $stmt->execute();
 
-  header("Location: guide.php?id=$id");
+  header("Location: manage_guides.php");
   exit();
 }
 ?>

@@ -1,18 +1,3 @@
-<?php
-function get_full_category_path($conn, $category_id) {
-  $path = "";
-  while ($category_id != NULL) {
-    $stmt = $conn->prepare("SELECT * FROM categories WHERE id = ?");
-    $stmt->bind_param("i", $category_id);
-    $stmt->execute();
-    $category = $stmt->get_result()->fetch_assoc();
-    $category_name = $category['name'];
-    $category_id = $category['parent_id'];
-    $path = $category_name . ($path ? " > " . $path : "");
-  }
-  return $path;
-}
-?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,12 +5,15 @@ function get_full_category_path($conn, $category_id) {
     <link rel="icon" type="image/png" href="/public/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="../public/styles/main.css">
     <link rel="stylesheet" type="text/css" href="../public/styles/header.css">
+    <link rel="stylesheet" href="../vendor/prism/prism.css">
   </head>
   <body>
   <?php
-  include '../header.php';
-  include '../config.php';
-  include '../vendor/parsedown/Parsedown.php';
+  error_reporting(E_ALL); ini_set('display_errors', 1);
+  include '/header.php';
+  include '/config.php';
+  include '/functions.php';
+  include '/vendor/parsedown/Parsedown.php';
 
   // Fetch the user's rank number from the database
 $user_rank_number = 0;
@@ -39,6 +27,22 @@ if (isset($_SESSION['user_id'])) {
     $row = $result->fetch_assoc();
     $user_rank_number = $row['rank_number'];
   }
+}
+
+if (isset($_GET['id'])) {
+  $guide_id = intval($_GET['id']);
+
+  // Insert a new view for the guide
+  $view_id = insertGuideView($guide_id, $_SESSION['user_id']);
+
+  // Start a timer when the page is visited
+  $start_time = microtime(true);
+
+  // Register a shutdown function to update the view duration when the page is closed or refreshed
+  register_shutdown_function(function() use ($view_id, $start_time) {
+    $duration = microtime(true) - $start_time;
+    updateGuideViewDuration($view_id, $duration);
+  });
 }
 
   if (!isset($_GET['id'])) {
@@ -69,17 +73,15 @@ if (isset($_SESSION['user_id'])) {
   ?>
 
   <main>
-    <?php include '../sidebar.php'; ?>
+    <?php include '/sidebar.php'; ?>
     <div class="content">
-      <h1><?php echo $header;
-      if ($user_rank_number >= 2) {
-        echo " <a href=\"edit_guide.php?id=$guide_id\" class=\"edit-link\">Edit</a>";
-      } ?></h1>
+      <h1><?php echo $header; ?></h1>
       <p style='margin-top: -10px; font-size: 14px; font-style: italic;'>Created by: <?php echo $creator_username; ?></p>
       <p style='margin-top: -10px; font-size: 14px; font-style: italic;'>Category: <?php echo $category_path; ?></p>
       <div><?php echo $html; ?></div>
     </div>
   </main>
-  <?php include '../footer.php'; ?>
+  <?php include '/footer.php'; ?>
+  <script src="/vendor/prism/prism.js"></script>
   </body>
 </html>

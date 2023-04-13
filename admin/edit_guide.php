@@ -3,17 +3,14 @@
   <head>
     <title>Wiki - Edit Guide</title>
     <link rel="icon" type="image/png" href="/public/images/favicon.png">
-    <link rel="stylesheet" type="text/css" href="../public/styles/main.css">
-    <link rel="stylesheet" type="text/css" href="../public/styles/header.css">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.css">
   </head>
   <body>
-
-  <?php include '../header.php'; ?>
   <?php include '../config.php'; ?>
 
 <main>
-  <?php include '../sidebar.php'; ?>
+  <?php include 'admin_sidebar.php'; ?>
   <div class="content">
     <h1>Edit Guide</h1>
     <?php

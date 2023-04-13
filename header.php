@@ -50,9 +50,6 @@ function fetch_subcategories($conn, $parent_id) {
         </li>
       <?php endwhile; ?>
       <?php
-      if ($user_rank_number >= 1) {
-        echo "<li><a href=\"/guides/add_guide.php\">Add Guide</a></li>";
-      }
       if ($user_rank_number >= 3) {
         echo "<li><a href=\"/admin/index.php\">Dashboard</a></li>";
       }

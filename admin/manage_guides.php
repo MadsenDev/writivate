@@ -52,6 +52,8 @@
       <div class="content">
         <h1>Manage Guides</h1>
 
+        <li><a href="add_guide.php">Add Guide</a></li>
+
         <table>
           <thead>
             <tr>
@@ -78,7 +80,7 @@
                 echo "<td>$guide_title</td>";
                 echo "<td>$category_name</td>";
                 echo "<td>$author_username</td>";
-                echo "<td><a href=\"../guides/edit_guide.php?id=$guide_id\">Edit</a> | <form method=\"POST\"><input type=\"hidden\" name=\"guide_id\" value=\"$guide_id\"><button type=\"submit\" name=\"delete_guide\" onclick=\"return confirm('Are you sure you want to delete this guide?')\">Delete</button></form></td>";
+                echo "<td><a href=\"edit_guide.php?id=$guide_id\">Edit</a> | <form method=\"POST\"><input type=\"hidden\" name=\"guide_id\" value=\"$guide_id\"><button type=\"submit\" name=\"delete_guide\" onclick=\"return confirm('Are you sure you want to delete this guide?')\">Delete</button></form></td>";
                 echo "</tr>";
               }
             } else {
