@@ -4,8 +4,9 @@
     left: 0;
     bottom: 0;
     width: 200px;
-    background-color: #333;
-    color: #fff;
+    background-color: #ececec;
+    color: #4e4e4e;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
   }
   
@@ -23,7 +24,7 @@
   }
   
   .sidebar-nav {
-    margin-top: 20px;
+    margin-top: 0px;
   }
   
   .sidebar-nav ul {
@@ -41,12 +42,12 @@
   .sidebar-nav li a {
     display: block;
     padding: 10px;
-    color: #fff;
+    color: #5a5a5a;
     text-decoration: none;
   }
   
   .sidebar-nav li a:hover {
-    background-color: #666;
+    background-color: #c9c9c9;
   }
 
   .nav-list {

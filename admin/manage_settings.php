@@ -76,7 +76,5 @@ $contact_email = $row['contact_email'];
     </form>
   </div>
 </main>
-
-<?php include '../footer.php'; ?>
 </body>
 </html>

@@ -137,8 +137,6 @@ function display_category_row($category, $level = 0) {
         </table>
       </div>
     </main>
-
-    <?php include '../footer.php'; ?>
     <script>
 document.addEventListener('DOMContentLoaded', function () {
   const addCategoryButton = document.querySelector('button[name="add_category"]');

@@ -30,7 +30,7 @@
 
 <aside class="sidebar">
   <div class="sidebar-header">
-    <img src="/public/images/logo.png" alt="Logo">
+    <a href="index.php"><img src="/public/images/logo.png" alt="Logo"></a>
   </div>
   <nav class="sidebar-nav">
     <ul class="nav-list">

@@ -64,7 +64,5 @@ $categoriesArray = $result->fetch_all(MYSQLI_ASSOC);
             </form>
         </div>
     </main>
-
-    <?php include '../footer.php'; ?>
 </body>
 </html>
