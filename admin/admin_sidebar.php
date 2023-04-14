@@ -30,10 +30,15 @@
 
 <aside class="sidebar">
   <div class="sidebar-header">
-    <img src="../images/logo.png" alt="Logo">
+    <img src="/public/images/logo.png" alt="Logo">
   </div>
   <nav class="sidebar-nav">
     <ul class="nav-list">
+      <li>
+        <a href="/index.php">
+          <i class="fas fa-folder"></i> View Site
+        </a>
+      </li>
       <li>
         <a href="manage_categories.php">
           <i class="fas fa-folder"></i> Manage Categories
@@ -50,8 +55,8 @@
         </a>
       </li>
       <li>
-        <a href="manage_comments.php">
-          <i class="fas fa-comments"></i> Manage Comments
+        <a href="manage_suggestions.php">
+          <i class="fas fa-comments"></i> Manage Suggestions
         </a>
       </li>
       <li>
@@ -64,7 +69,7 @@
 
   <?php if (isset($username)) : ?>
     <div class="sidebar-footer">
-      Logged in as <?php echo $username; ?><br>
+      Logged in as <br> <b><?php echo $username; ?></b><br>
       <a href="../logout.php">Logout</a>
     </div>
   <?php endif; ?>

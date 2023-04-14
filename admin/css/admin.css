@@ -119,3 +119,7 @@ a {
     color: #0066cc;
     text-decoration: none;
 }
+
+.sidebar-footer {
+  text-align: center;
+}

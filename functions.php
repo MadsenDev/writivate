@@ -99,5 +99,16 @@ function get_all_child_category_ids($conn, $parent_id) {
   }
   return $child_category_ids;
 }
+
+function get_setting_value($conn, $name) {
+  $stmt = $conn->prepare("SELECT value FROM settings WHERE name = ?");
+  $stmt->bind_param("s", $name);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  if ($result->num_rows > 0) {
+      return $result->fetch_assoc()['value'];
+  }
+  return null;
+}
   
 ?>

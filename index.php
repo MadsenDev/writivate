@@ -1,15 +1,19 @@
+<?php
+  include 'config.php';
+  include 'functions.php';
+  $site_name = get_setting_value($conn, 'site_name');
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Wiki</title>
+    <title><?php echo $site_name; ?></title>
     <link rel="icon" type="image/png" href="public/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="public/styles/main.css">
     <link rel="stylesheet" type="text/css" href="public/styles/header.css">
   </head>
   <body>
   <?php include 'header.php'; ?>
-  <?php include 'config.php'; ?>
-  <?php include 'functions.php'; ?>
 
 <main>
   <?php include 'sidebar.php'; ?>
