@@ -48,7 +48,7 @@ CREATE TABLE `guide_views` (
 
 --
 -- Indexes for table `categories`
---
+-- 767y 7y bhnnmm,
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
   ADD KEY `parent_id` (`parent_id`);

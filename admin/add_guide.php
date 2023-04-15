@@ -31,6 +31,11 @@
               }
             ?>
           </select>
+          <!-- Add this after the "Content" textarea -->
+<div class="form-group">
+  <label for="tags">Tags (separated by commas):</label>
+  <input type="text" id="tags" name="tags" class="form-control">
+</div>
         </div>
         <div class="form-group">
           <label for="guide-content">Content:</label>

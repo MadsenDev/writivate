@@ -39,6 +39,12 @@
         $stmt = $conn->prepare("DELETE FROM guide_updates WHERE guide_id = ?");
         $stmt->bind_param("i", $guide_id);
         $stmt->execute();
+
+        // Delete related views for the guide
+        $stmt = $conn->prepare("DELETE FROM guide_views WHERE guide_id = ?");
+        $stmt->bind_param("i", $guide_id);
+        $stmt->execute();
+
     
         // Delete the guide
         $stmt = $conn->prepare("DELETE FROM guides WHERE id = ?");
