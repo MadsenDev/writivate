@@ -110,5 +110,61 @@ function get_setting_value($conn, $name) {
   }
   return null;
 }
+
+function get_user_by_id($conn, $id) {
+  $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  return $result->fetch_assoc();
+}
+
+function get_rank_title($conn, $rank_id) {
+  $stmt = $conn->prepare("SELECT title FROM ranks WHERE id = ?");
+  $stmt->bind_param("i", $rank_id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $row = $result->fetch_assoc();
+  return $row['title'];
+}
+
+function update_user($conn, $id, $username, $email, $password) {
+  if (!empty($password)) {
+      $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+      $stmt = $conn->prepare("UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?");
+      $stmt->bind_param("sssi", $username, $email, $hashed_password, $id);
+  } else {
+      $stmt = $conn->prepare("UPDATE users SET username = ?, email = ? WHERE id = ?");
+      $stmt->bind_param("ssi", $username, $email, $id);
+  }
+
+  return $stmt->execute();
+}
+
+function get_recently_viewed_guides($conn, $user_id, $limit = 5) {
+  $stmt = $conn->prepare("SELECT g.id, g.title, gv.view_time FROM guide_views gv
+                          JOIN guides g ON g.id = gv.guide_id
+                          WHERE gv.user_id = ?
+                          ORDER BY gv.view_time DESC
+                          LIMIT ?");
+  $stmt->bind_param("ii", $user_id, $limit);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $guides = [];
+  while ($row = $result->fetch_assoc()) {
+      $guides[] = $row;
+  }
+  return $guides;
+}
+
+// functions.php
+function search_guides($conn, $query) {
+  $search_query = "%" . $query . "%";
+  $stmt = $conn->prepare("SELECT * FROM guides WHERE title LIKE ? OR content LIKE ?");
+  $stmt->bind_param("ss", $search_query, $search_query);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  return $result->fetch_all(MYSQLI_ASSOC);
+}
   
 ?>

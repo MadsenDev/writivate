@@ -55,6 +55,11 @@ function fetch_subcategories($conn, $parent_id) {
     <nav class="user-actions">
       <ul>
         <?php
+        if ($user_rank_number >= 1) {
+          echo "<li><a href=\"/profile.php\">Profile</a></li>";
+        }
+        ?>
+        <?php
         if ($user_rank_number >= 3) {
           echo "<li><a href=\"/admin/index.php\">Dashboard</a></li>";
         }

@@ -44,6 +44,7 @@ nav ul {
 nav ul li {
   margin-right: 20px;
   position: relative;
+  border-radius: 5px;
 }
 
 nav ul li:last-child {
@@ -54,6 +55,7 @@ nav a {
   display: block;
   padding: 5px;
   text-decoration: none;
+  border-radius: 5px;
   color: #1d1d1d;
 }
 
@@ -88,11 +90,10 @@ nav ul li:hover ul.submenu {
 }
 
 footer {
-  background-color: #333;
-  color: #fff;
+  color: #363636;
   text-align: center;
   padding: 15px 0;
-  margin-top: 20px;
+  margin-top: 2px;
   clear: both;
 }
 
