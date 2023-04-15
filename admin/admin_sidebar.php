@@ -45,6 +45,11 @@
         </a>
       </li>
       <li>
+        <a href="manage_ranks.php">
+          <i class="fas fa-users"></i> Manage Ranks
+        </a>
+      </li>
+      <li>
         <a href="manage_users.php">
           <i class="fas fa-users"></i> Manage Users
         </a>
@@ -57,6 +62,11 @@
       <li>
         <a href="manage_suggestions.php">
           <i class="fas fa-comments"></i> Manage Suggestions
+        </a>
+      </li>
+      <li>
+        <a href="manage_views.php">
+          <i class="fas fa-comments"></i> Manage Views
         </a>
       </li>
       <li>

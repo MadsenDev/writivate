@@ -1,7 +1,13 @@
+<?php
+  include 'config.php';
+  include 'functions.php';
+  $site_name = get_setting_value($conn, 'site_name');
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Wiki</title>
+    <title><?php echo $site_name; ?></title>
     <link rel="icon" type="image/png" href="public/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="public/styles/main.css">
     <link rel="stylesheet" type="text/css" href="public/styles/header.css">
@@ -10,8 +16,6 @@
   <body>
   <?php
   include 'header.php';
-  include 'config.php';
-  include 'functions.php';
   include 'vendor/parsedown/Parsedown.php';
 
   // Fetch the user's rank number from the database
@@ -92,14 +96,14 @@ $updates_result = $stmt->get_result();
       <p style='margin-top: -10px; font-size: 14px; font-style: italic;'>Category: <?php echo $category_path; ?></p>
       <div><?php echo $html; ?></div>
       <!-- Display the tags after the guide's content -->
-<div class="guide-tags">
+<div class="guide-tags hide-on-print">
   <h4>Tags:</h4>
   <?php while ($tag = $tags->fetch_assoc()): ?>
     <span class="tag"><?php echo htmlspecialchars($tag['name']); ?></span>
   <?php endwhile; ?>
 </div>
 
-      <div class="updates-list">
+      <div class="updates-list hide-on-print">
   <h4>Update History:</h4>
   <ul>
     <?php while ($update_row = $updates_result->fetch_assoc()) : ?>
@@ -118,11 +122,35 @@ $updates_result = $stmt->get_result();
     </li>
   </ul>
 </div>
+<a href="#" id="printContent" class="hide-on-print">Print Guide</a>
 
     </div>
     
   </main>
   <?php include 'footer.php'; ?>
   <script src="vendor/prism/prism.js"></script>
+  <script>
+  document.getElementById("printContent").addEventListener("click", function () {
+    const printWindow = window.open("", "_blank");
+    const content = document.querySelector(".content").cloneNode(true);
+    const hiddenElements = content.querySelectorAll(".hide-on-print");
+
+    hiddenElements.forEach(element => {
+      element.style.display = "none";
+    });
+
+    printWindow.document.write("<html><head><title>Print Content</title></head><body>");
+    printWindow.document.write(content.innerHTML);
+    printWindow.document.write("</body></html>");
+    printWindow.document.close();
+    printWindow.print();
+
+    // Add this event listener to close the print window after the print dialog is closed
+    printWindow.addEventListener("afterprint", function() {
+      printWindow.close();
+    });
+  });
+</script>
+
   </body>
 </html>

@@ -3,6 +3,7 @@ session_start();
 
 include 'config.php';
 include 'functions.php';
+$site_name = get_setting_value($conn, 'site_name');
 
 // Fetch current user data
 $user = get_user_by_id($conn, $_SESSION['user_id']);

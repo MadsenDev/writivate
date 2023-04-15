@@ -16,6 +16,17 @@ if (isset($_SESSION['user_id'])) {
   }
 }
 
+// Fetch logo URL from the database
+$stmt = $conn->prepare("SELECT value FROM settings WHERE name = 'logo_url'");
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows > 0) {
+  $row = $result->fetch_assoc();
+  $logo_url = $row['value'];
+} else {
+  $logo_url = "/public/images/logo.png"; // Default logo URL in case it's not found in the database
+}
+
 // Fetch parent categories and their subcategories
 $stmt = $conn->prepare("SELECT * FROM categories WHERE parent_id IS NULL");
 $stmt->execute();
@@ -33,7 +44,7 @@ function fetch_subcategories($conn, $parent_id) {
 <header>
   <div class="header-container">
     <div class="logo">
-      <a href="/index.php"><img src="/public/images/logo.png" alt="Wiki Logo"></a>
+    <a href="/index.php"><img src="<?php echo htmlspecialchars($logo_url); ?>" alt="Wiki Logo"></a>
     </div>
     <nav class="categories">
       <ul>

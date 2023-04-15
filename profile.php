@@ -1,6 +1,8 @@
 <?php
 include 'config.php';
 include 'functions.php';
+$site_name = get_setting_value($conn, 'site_name');
+
 session_start();
 
 // Get user id from URL or current user id
@@ -21,7 +23,6 @@ if (!$user) {
     <link rel="icon" type="image/png" href="public/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="public/styles/main.css">
     <link rel="stylesheet" type="text/css" href="public/styles/header.css">
-    ...
 </head>
 <body>
 <?php include 'header.php'; ?>

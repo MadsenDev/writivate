@@ -174,36 +174,6 @@ aside a:hover {
   margin-bottom: 5px;
 }
 
-.tags-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  justify-content: flex-start;
-  font-size: 12px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-top: 10px;
-}
-
-.tag {
-  display: flex;
-  align-items: center;
-  background-color: #f1f1f1;
-  padding: 4px 8px;
-  border-radius: 14px;
-  font-size: 0.9em;
-  cursor: pointer;
-  user-select: none;
-  margin-bottom: 5px;
-}
-
-.tag:hover {
-  background-color: #e0e0e0;
-}
-
-.tag i {
-  margin-left: 4px;
-}
 .search-form-container {
   display: flex;
   justify-content: center;
@@ -308,4 +278,34 @@ textarea.form-control {
   padding-top: 0px;
   margin-top: 0px;
 }
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: flex-start;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  padding: 4px 8px;
+  border-radius: 14px;
+  font-size: 0.9em;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 5px;
+}
+
+.tag:hover {
+  background-color: #e0e0e0;
+}
+
+.tag i {
+  margin-left: 4px;
 }

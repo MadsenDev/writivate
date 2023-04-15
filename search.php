@@ -1,6 +1,7 @@
 <?php
 include 'config.php';
 include 'functions.php';
+$site_name = get_setting_value($conn, 'site_name');
 
 $query = isset($_GET['query']) ? $_GET['query'] : '';
 $search_results = search_guides($conn, $query);

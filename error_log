@@ -1,0 +1,175 @@
+[13-Apr-2023 19:53:31 UTC] PHP Warning:  include(/header.php): failed to open stream: No such file or directory in /home/madsensd/wiki/guide.php on line 13
+[13-Apr-2023 19:53:31 UTC] PHP Warning:  include(): Failed opening '/header.php' for inclusion (include_path='.:/opt/alt/php74/usr/share/pear') in /home/madsensd/wiki/guide.php on line 13
+[13-Apr-2023 19:53:31 UTC] PHP Warning:  include(/config.php): failed to open stream: No such file or directory in /home/madsensd/wiki/guide.php on line 14
+[13-Apr-2023 19:53:31 UTC] PHP Warning:  include(): Failed opening '/config.php' for inclusion (include_path='.:/opt/alt/php74/usr/share/pear') in /home/madsensd/wiki/guide.php on line 14
+[13-Apr-2023 19:53:31 UTC] PHP Warning:  include(/functions.php): failed to open stream: No such file or directory in /home/madsensd/wiki/guide.php on line 15
+[13-Apr-2023 19:53:31 UTC] PHP Warning:  include(): Failed opening '/functions.php' for inclusion (include_path='.:/opt/alt/php74/usr/share/pear') in /home/madsensd/wiki/guide.php on line 15
+[13-Apr-2023 19:53:31 UTC] PHP Warning:  include(/vendor/parsedown/Parsedown.php): failed to open stream: No such file or directory in /home/madsensd/wiki/guide.php on line 16
+[13-Apr-2023 19:53:31 UTC] PHP Warning:  include(): Failed opening '/vendor/parsedown/Parsedown.php' for inclusion (include_path='.:/opt/alt/php74/usr/share/pear') in /home/madsensd/wiki/guide.php on line 16
+[13-Apr-2023 19:53:31 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function insertGuideView() in /home/madsensd/wiki/guide.php:36
+Stack trace:
+#0 {main}
+  thrown in /home/madsensd/wiki/guide.php on line 36
+[13-Apr-2023 19:54:08 UTC] PHP Warning:  include(/header.php): failed to open stream: No such file or directory in /home/madsensd/wiki/guide.php on line 13
+[13-Apr-2023 19:54:08 UTC] PHP Warning:  include(): Failed opening '/header.php' for inclusion (include_path='.:/opt/alt/php74/usr/share/pear') in /home/madsensd/wiki/guide.php on line 13
+[13-Apr-2023 19:54:08 UTC] PHP Warning:  include(/config.php): failed to open stream: No such file or directory in /home/madsensd/wiki/guide.php on line 14
+[13-Apr-2023 19:54:08 UTC] PHP Warning:  include(): Failed opening '/config.php' for inclusion (include_path='.:/opt/alt/php74/usr/share/pear') in /home/madsensd/wiki/guide.php on line 14
+[13-Apr-2023 19:54:08 UTC] PHP Warning:  include(/functions.php): failed to open stream: No such file or directory in /home/madsensd/wiki/guide.php on line 15
+[13-Apr-2023 19:54:08 UTC] PHP Warning:  include(): Failed opening '/functions.php' for inclusion (include_path='.:/opt/alt/php74/usr/share/pear') in /home/madsensd/wiki/guide.php on line 15
+[13-Apr-2023 19:54:08 UTC] PHP Warning:  include(/vendor/parsedown/Parsedown.php): failed to open stream: No such file or directory in /home/madsensd/wiki/guide.php on line 16
+[13-Apr-2023 19:54:08 UTC] PHP Warning:  include(): Failed opening '/vendor/parsedown/Parsedown.php' for inclusion (include_path='.:/opt/alt/php74/usr/share/pear') in /home/madsensd/wiki/guide.php on line 16
+[13-Apr-2023 19:54:08 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function insertGuideView() in /home/madsensd/wiki/guide.php:36
+Stack trace:
+#0 {main}
+  thrown in /home/madsensd/wiki/guide.php on line 36
+[13-Apr-2023 20:08:07 UTC] PHP Notice:  Undefined variable: parent_categories in /home/madsensd/wiki/header.php on line 15
+[13-Apr-2023 20:08:07 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in /home/madsensd/wiki/header.php:15
+Stack trace:
+#0 /home/madsensd/wiki/index.php(10): include()
+#1 {main}
+  thrown in /home/madsensd/wiki/header.php on line 15
+[13-Apr-2023 20:08:08 UTC] PHP Notice:  Undefined variable: parent_categories in /home/madsensd/wiki/header.php on line 15
+[13-Apr-2023 20:08:08 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in /home/madsensd/wiki/header.php:15
+Stack trace:
+#0 /home/madsensd/wiki/index.php(10): include()
+#1 {main}
+  thrown in /home/madsensd/wiki/header.php on line 15
+[13-Apr-2023 21:27:56 UTC] PHP Fatal error:  Cannot use positional argument after argument unpacking in /home/madsensd/wiki/functions.php on line 82
+[13-Apr-2023 21:32:41 UTC] PHP Fatal error:  Cannot use positional argument after argument unpacking in /home/madsensd/wiki/functions.php on line 82
+[13-Apr-2023 21:32:42 UTC] PHP Fatal error:  Cannot use positional argument after argument unpacking in /home/madsensd/wiki/functions.php on line 82
+[13-Apr-2023 21:32:43 UTC] PHP Fatal error:  Cannot use positional argument after argument unpacking in /home/madsensd/wiki/functions.php on line 82
+[13-Apr-2023 21:32:43 UTC] PHP Fatal error:  Cannot use positional argument after argument unpacking in /home/madsensd/wiki/functions.php on line 82
+[13-Apr-2023 21:32:44 UTC] PHP Fatal error:  Cannot use positional argument after argument unpacking in /home/madsensd/wiki/functions.php on line 82
+[13-Apr-2023 21:32:44 UTC] PHP Fatal error:  Cannot use positional argument after argument unpacking in /home/madsensd/wiki/functions.php on line 82
+[13-Apr-2023 21:32:44 UTC] PHP Fatal error:  Cannot use positional argument after argument unpacking in /home/madsensd/wiki/functions.php on line 82
+[13-Apr-2023 22:21:18 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 36
+[13-Apr-2023 22:21:42 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 36
+[14-Apr-2023 11:09:26 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 36
+[14-Apr-2023 11:10:33 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[14-Apr-2023 11:37:20 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[14-Apr-2023 11:56:06 UTC] PHP Fatal error:  Cannot redeclare build_category_tree() (previously declared in /home/madsensd/wiki/functions.php:2) in /home/madsensd/wiki/functions.php on line 2
+[14-Apr-2023 12:53:11 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[14-Apr-2023 12:53:16 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[14-Apr-2023 12:55:06 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[14-Apr-2023 17:04:35 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[14-Apr-2023 19:20:25 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:22:21 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:22:21 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:22:26 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/edit_profile.php on line 29
+[14-Apr-2023 19:22:26 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:22:32 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:22:32 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:22:35 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/edit_profile.php on line 29
+[14-Apr-2023 19:22:35 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:22:38 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:22:38 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:24:29 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:24:29 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:24:31 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:24:31 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:24:55 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/edit_profile.php on line 29
+[14-Apr-2023 19:24:55 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:25:03 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:25:03 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:28:13 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:28:13 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:29:59 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:29:59 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:30:52 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/edit_profile.php on line 29
+[14-Apr-2023 19:30:52 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:30:56 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:30:56 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:35:00 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:35:00 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:35:01 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:35:01 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:35:02 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:35:02 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:35:03 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:35:03 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:35:03 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:35:03 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:35:05 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:35:05 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:35:55 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:35:55 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:35:56 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:35:56 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:35:57 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:35:57 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:35:59 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:35:59 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:36:03 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/edit_profile.php on line 29
+[14-Apr-2023 19:36:03 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:36:05 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:36:05 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:36:08 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:36:08 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:36:33 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:36:33 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:36:46 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:36:46 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:36:54 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:36:54 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:37:15 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:37:15 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:37:16 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:37:16 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:37:17 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:37:17 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:38:31 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 19:38:31 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 19:58:54 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/search.php on line 12
+[14-Apr-2023 20:01:18 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/search.php on line 12
+[14-Apr-2023 20:01:50 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/search.php on line 12
+[14-Apr-2023 20:13:18 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 20:13:18 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 20:13:46 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 20:13:46 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 20:13:47 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/edit_profile.php on line 29
+[14-Apr-2023 20:13:47 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 20:19:31 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 20:19:31 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 20:51:24 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 20:51:24 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 20:54:47 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 20:54:47 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 20:57:41 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 20:57:41 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 20:57:42 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 20:57:42 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 20:57:43 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 20:57:43 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 20:58:51 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 20:58:51 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[14-Apr-2023 20:58:52 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[14-Apr-2023 20:58:52 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[15-Apr-2023 12:13:07 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/search.php on line 12
+[15-Apr-2023 12:13:23 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[15-Apr-2023 12:13:23 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[15-Apr-2023 15:24:52 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[15-Apr-2023 15:24:52 UTC] PHP Notice:  Undefined variable: tags in /home/madsensd/wiki/guide.php on line 91
+[15-Apr-2023 15:24:52 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in /home/madsensd/wiki/guide.php:91
+Stack trace:
+#0 {main}
+  thrown in /home/madsensd/wiki/guide.php on line 91
+[15-Apr-2023 15:26:03 UTC] PHP Notice:  Undefined variable: tags in /home/madsensd/wiki/guide.php on line 91
+[15-Apr-2023 15:26:03 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in /home/madsensd/wiki/guide.php:91
+Stack trace:
+#0 {main}
+  thrown in /home/madsensd/wiki/guide.php on line 91
+[15-Apr-2023 15:44:35 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[15-Apr-2023 15:48:44 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[15-Apr-2023 15:49:37 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[15-Apr-2023 15:50:08 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[15-Apr-2023 15:50:11 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/guide.php on line 35
+[15-Apr-2023 17:01:30 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[15-Apr-2023 17:01:30 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[15-Apr-2023 18:30:40 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/profile.php on line 7
+[15-Apr-2023 18:30:41 UTC] PHP Notice:  Undefined index: user_id in /home/madsensd/wiki/profile.php on line 7
+[15-Apr-2023 18:30:52 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[15-Apr-2023 18:30:52 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[15-Apr-2023 18:31:17 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[15-Apr-2023 18:31:17 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3
+[15-Apr-2023 18:31:18 UTC] PHP Notice:  Undefined variable: site_name in /home/madsensd/wiki/profile.php on line 20
+[15-Apr-2023 18:31:18 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/madsensd/wiki/header.php on line 3

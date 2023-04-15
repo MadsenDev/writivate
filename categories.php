@@ -1,5 +1,7 @@
 <?php
 include 'config.php';
+include 'functions.php';
+$site_name = get_setting_value($conn, 'site_name');
 function fetch_subcategory_guides($conn, $category_id) {
     $stmt = $conn->prepare("SELECT id, name FROM categories WHERE parent_id = ?");
     $stmt->bind_param("i", $category_id);
@@ -31,7 +33,7 @@ function fetch_subcategory_guides($conn, $category_id) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Wiki - Category</title>
+    <title><?php echo $site_name; ?></title>
     <link rel="icon" type="image/png" href="public/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="public/styles/main.css">
     <link rel="stylesheet" type="text/css" href="public/styles/header.css">
