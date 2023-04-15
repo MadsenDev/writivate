@@ -13,6 +13,7 @@ $most_viewed_guides = $stmt->get_result();
 ?>
 
 <aside>
+      <?php include 'search_form.php'; ?>
   <h2>Most Viewed Guides</h2>
   <ul>
     <?php while ($guide = $most_viewed_guides->fetch_assoc()): ?>

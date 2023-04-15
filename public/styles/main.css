@@ -13,12 +13,13 @@ body {
 }
 
 a {
-  color: #007bff;
+  color: #ff3300;
   text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: #5a342a;
+  text-decoration: none;
 }
 
 .container {
@@ -80,6 +81,55 @@ aside a:hover {
   max-width: 100%;
 }
 
+/* Profile page styles */
+.content h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.content p {
+  margin-bottom: 15px;
+}
+
+.recently-viewed-guides {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.recently-viewed-guides h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.recently-viewed-guides ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recently-viewed-guides li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.recently-viewed-guides li:last-child {
+  border-bottom: none;
+}
+
+.recently-viewed-guides a {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.recently-viewed-guides span {
+  font-size: 14px;
+  color: #888;
+  display: block;
+  margin-top: 5px;
+}
+
+/* Other styles */
 .edit-link {
   font-size: 0.8em;
   font-weight: normal;
@@ -153,4 +203,109 @@ aside a:hover {
 
 .tag i {
   margin-left: 4px;
+}
+.search-form-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-form {
+  display: flex;
+  max-width: 400px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-form input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 10px;
+  color: #3f3e3e;
+  background-color: #f5f5f5;
+}
+
+.search-form button {
+  border: none;
+  outline: none;
+  background-color: #ff3c00;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-form button:hover {
+  background-color: #b30000;
+}
+
+/* Suggestions container */
+.suggestions-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Form styles */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #ff3c00;
+  color: #fff;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #b30000;
+}
+
+.profile-username {
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.profile-rank {
+  font-size: 12px;
+  color: #888;
+  padding-top: 0px;
+  margin-top: 0px;
+}
 }

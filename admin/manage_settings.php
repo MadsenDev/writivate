@@ -33,13 +33,17 @@ if (isset($_POST['update_settings'])) {
 }
 
 // Get current settings
-$stmt = $conn->prepare("SELECT * FROM settings");
+$stmt = $conn->prepare("SELECT name, value FROM settings");
 $stmt->execute();
 $result = $stmt->get_result();
-$row = $result->fetch_assoc();
-$site_title = $row['site_title'];
-$site_description = $row['site_description'];
-$contact_email = $row['contact_email'];
+$settings = [];
+while ($row = $result->fetch_assoc()) {
+  $settings[$row['name']] = $row['value'];
+}
+$site_title = $settings['site_name'];
+$logo_url = $settings['logo_url'];
+$default_category_id = $settings['default_category_id'];
+$comments_moderation = $settings['comments_moderation'];
 ?>
 
 <!DOCTYPE html>

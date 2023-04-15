@@ -13,6 +13,7 @@
 <main>
   <?php include 'sidebar.php'; ?>
   <div class="content">
+    <div class="suggestions-container">
     <h1>Suggestions</h1>
     <form method="POST" action="submit_suggestion.php">
       <div class="form-group">
@@ -30,6 +31,7 @@
       <div class="g-recaptcha" data-sitekey="6LdW04glAAAAAA_zSfjQUi9CBrXY5PZedNFdFohF"></div>
       <button type="submit" class="btn btn-primary">Submit Suggestion</button>
     </form>
+    </div>
   </div>
 </main>
 
