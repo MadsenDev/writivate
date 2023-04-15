@@ -30,6 +30,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->bind_param("ii", $id, $updater_id);
   $stmt->execute();
 
+  // Remove existing guide_tags relationships
+$stmt = $conn->prepare("DELETE FROM guide_tags WHERE guide_id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+
+// Insert new tags
+$tags = explode(",", $_POST['tags']);
+foreach ($tags as $tag) {
+  $tag = trim($tag);
+  if (!empty($tag)) {
+    // Check if the tag already exists
+    $stmt = $conn->prepare("SELECT id FROM tags WHERE name = ?");
+    $stmt->bind_param("s", $tag);
+    $stmt->execute();
+    $tag_result = $stmt->get_result();
+
+    // If the tag doesn't exist, insert it into the tags table
+    if ($tag_result->num_rows === 0) {
+      $stmt = $conn->prepare("INSERT INTO tags (name) VALUES (?)");
+      $stmt->bind_param("s", $tag);
+      $stmt->execute();
+      $tag_id = $stmt->insert_id;
+    } else {
+      $tag_row = $tag_result->fetch_assoc();
+      $tag_id = $tag_row['id'];
+    }
+
+    // Insert the relationship into the guide_tags table
+    $stmt = $conn->prepare("INSERT INTO guide_tags (guide_id, tag_id) VALUES (?, ?)");
+    $stmt->bind_param("ii", $id, $tag_id);
+    $stmt->execute();
+  }
+}
+
+
   header("Location: manage_guides.php");
   exit();
 }

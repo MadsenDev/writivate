@@ -44,9 +44,25 @@
       $selected = $row['id'] == $category_id ? 'selected' : '';
       echo "<option value=\"{$row['id']}\" $selected>{$row['name']}</option>";
     }
+
+    // Fetch tags for the guide
+    $stmt = $conn->prepare("SELECT name FROM tags INNER JOIN guide_tags ON tags.id = guide_tags.tag_id WHERE guide_tags.guide_id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $tags_result = $stmt->get_result();
+
+    $tags_string = "";
+    while ($tag_row = $tags_result->fetch_assoc()) {
+      $tags_string .= $tag_row['name'] . ', ';
+    }
+    $tags_string = rtrim($tags_string, ', ');
   ?>
 </select>
       </div>
+      <div class="form-group">
+  <label for="guide-tags">Tags (comma-separated):</label>
+  <input type="text" id="guide-tags" name="tags" class="form-control" value="<?php echo $tags_string; ?>">
+</div>
       <div class="form-group">
         <label for="guide-content">Content:</label>
         <textarea id="guide-content" name="content" class="form-control"><?php echo $content; ?></textarea>

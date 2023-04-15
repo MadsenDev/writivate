@@ -51,6 +51,12 @@ if (isset($_GET['id'])) {
   $guide_id = intval($_GET['id']);
 
   $stmt = $conn->prepare("SELECT guides.*, categories.name as category_name, users.username as creator_username FROM guides INNER JOIN categories ON guides.category_id = categories.id INNER JOIN users ON guides.creator_id = users.id WHERE guides.id = ?");
+  // Fetch guide tags
+$tag_stmt = $conn->prepare("SELECT tags.* FROM tags INNER JOIN guide_tags ON tags.id = guide_tags.tag_id WHERE guide_tags.guide_id = ?");
+$tag_stmt->bind_param("i", $guide_id);
+$tag_stmt->execute();
+$tags = $tag_stmt->get_result();
+
   $stmt->bind_param("i", $guide_id);
   $stmt->execute();
   $result = $stmt->get_result();
@@ -85,6 +91,14 @@ $updates_result = $stmt->get_result();
       <p style='margin-top: -10px; font-size: 14px; font-style: italic;'>Created by: <?php echo $creator_username; ?></p>
       <p style='margin-top: -10px; font-size: 14px; font-style: italic;'>Category: <?php echo $category_path; ?></p>
       <div><?php echo $html; ?></div>
+      <!-- Display the tags after the guide's content -->
+<div class="guide-tags">
+  <h4>Tags:</h4>
+  <?php while ($tag = $tags->fetch_assoc()): ?>
+    <span class="tag"><?php echo htmlspecialchars($tag['name']); ?></span>
+  <?php endwhile; ?>
+</div>
+
       <div class="updates-list">
   <h4>Update History:</h4>
   <ul>
