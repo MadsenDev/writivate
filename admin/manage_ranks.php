@@ -1,74 +1,66 @@
 <?php
-session_start();
 include '../config.php';
+include '../functions.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Handle rank updates
-    foreach ($_POST['ranks'] as $id => $rank) {
-        $stmt = $conn->prepare("UPDATE ranks SET title = ?, rank_number = ?, can_create_guide = ?, can_edit_guide = ?, can_delete_guide = ?, can_manage_categories = ?, can_manage_users = ?, can_manage_tags = ?, can_manage_ranks = ?, can_manage_views = ?, can_manage_comments = ?, can_manage_reports = ?, can_manage_system_settings = ? WHERE id = ?");
-        $stmt->bind_param("siiiiiiiiiiiii", $rank['title'], $rank['rank_number'], $rank['can_create_guide'], $rank['can_edit_guide'], $rank['can_delete_guide'], $rank['can_manage_categories'], $rank['can_manage_users'], $rank['can_manage_tags'], $rank['can_manage_ranks'], $rank['can_manage_views'], $rank['can_manage_comments'], $rank['can_manage_reports'], $rank['can_manage_system_settings'], $id);
-        $stmt->execute();
-    }
-}
-
-// Fetch ranks
-$result = $conn->query("SELECT * FROM ranks ORDER BY rank_number ASC");
+// Fetch all ranks
+$stmt = $conn->prepare("SELECT * FROM ranks ORDER BY rank_number");
+$stmt->execute();
+$result = $stmt->get_result();
+$ranks = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Manage Ranks</title>
-  <link rel="icon" type="image/png" href="/public/images/favicon.png">
-  <link rel="stylesheet" type="text/css" href="css/admin.css">
-  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+    <title>Wiki - Manage Ranks</title>
+    <link rel="icon" type="image/png" href="/public/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
 </head>
 <body>
-  <?php include 'admin_sidebar.php'; ?>
+    <?php include 'admin_sidebar.php'; ?>
+    <main>
+        <div class="content">
+            <h1>Manage Ranks</h1>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Rank Number</th>
+                    <th>Permissions</th>
+                    <th>Actions</th>
+                </tr>
+                <?php foreach ($ranks as $rank) : ?>
+                    <tr>
+                        <td><?php echo $rank['id']; ?></td>
+                        <td><?php echo $rank['title']; ?></td>
+                        <td><?php echo $rank['rank_number']; ?></td>
+                        <td>
+                            <?php
+                            $permissions = [];
+                            if ($rank['can_create_guide']) $permissions[] = 'Create Guides';
+                            if ($rank['can_edit_guide']) $permissions[] = 'Edit Guides';
+                            if ($rank['can_delete_guide']) $permissions[] = 'Delete Guides';
+                            if ($rank['can_manage_categories']) $permissions[] = 'Manage Categories';
+                            if ($rank['can_manage_users']) $permissions[] = 'Manage Users';
+                            if ($rank['can_manage_tags']) $permissions[] = 'Manage Tags';
+                            if ($rank['can_manage_ranks']) $permissions[] = 'Manage Ranks';
+                            if ($rank['can_manage_views']) $permissions[] = 'Manage Views';
+                            if ($rank['can_manage_comments']) $permissions[] = 'Manage Comments';
+                            if ($rank['can_manage_reports']) $permissions[] = 'Manage Reports';
+                            if ($rank['can_manage_system_settings']) $permissions[] = 'Manage System Settings';
 
-  <div class="content">
-    <h1>Manage Ranks</h1>
-    <p>Update rank titles and permissions:</p>
-
-    <form method="post" action="manage_ranks.php">
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Rank Number</th>
-            <th>Create Guide</th>
-            <th>Edit Guide</th>
-            <th>Delete Guide</th>
-            <th>Manage Categories</th>
-            <th>Manage Users</th>
-            <th>Manage Tags</th>
-            <th>Manage Ranks</th>
-            <th>Manage Views</th>
-            <th>Manage Comments</th>
-            <th>Manage Reports</th>
-            <th>Manage System Settings</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php while ($rank = $result->fetch_assoc()): ?>
-            <tr>
-              <input type="hidden" name="ranks[<?= $rank['id'] ?>][id]" value="<?= $rank['id'] ?>">
-              <td><input type="text" name="ranks[<?= $rank['id'] ?>][title]" value="<?= htmlspecialchars($rank['title']) ?>"></td>
-              <td><input type="number" name="ranks[<?= $rank['id'] ?>][rank_number]" value="<?= $rank['rank_number'] ?>"></td>
-              <?php
-              $permissions = ['can_create_guide', 'can_edit_guide', 'can_delete_guide', 'can_manage_categories', 'can_manage_users', 'can_manage_tags', 'can_manage_ranks', 'can_manage_views', 'can_manage_comments', 'can_manage_reports', 'can_manage_system_settings'];
-              foreach ($permissions as $permission):
-              ?>
-                                <td>
-                  <input type="checkbox" name="ranks[<?= $rank['id'] ?>][<?= $permission ?>]" value="1" <?= $rank[$permission] ? 'checked' : '' ?>>
-                </td>
-              <?php endforeach; ?>
-            </tr>
-          <?php endwhile; ?>
-        </tbody>
-      </table>
-      <input type="submit" value="Save Changes">
-    </form>
-  </div>
+                            echo implode(', ', $permissions);
+                            ?>
+                        </td>
+                        <td>
+                            <a href="edit_rank.php?id=<?php echo $rank['id']; ?>">Edit</a> |
+                            <a href="delete_rank.php?id=<?php echo $rank['id']; ?>" onclick="return confirm('Are you sure you want to delete this rank?');">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+            <a href="add_rank.php" class="add-new">Add New Rank</a>
+        </div>
+    </main>
 </body>
 </html>

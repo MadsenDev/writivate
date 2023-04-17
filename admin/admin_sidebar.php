@@ -1,31 +1,16 @@
 <?php
-  session_start();
-  include '../config.php';
+session_start();
+include '../config.php';
+include 'check_permissions.php';
 
-  // Check if user is logged in
-  if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-
-    // Fetch the user's rank from the database
-    $user_rank = '';
-    $stmt = $conn->prepare("SELECT ranks.rank_number FROM users INNER JOIN ranks ON users.rank_id = ranks.id WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-      $row = $result->fetch_assoc();
-      $user_rank = $row['rank_number'];
-    }
-
-    // Check if user has permission to access the admin panel
-    if ($user_rank < 3) {
-      header('Location: ../login.php');
-      exit();
-    }
-  } else {
-    header('Location: ../login.php');
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    header('Location: ../auth/login.php');
     exit();
-  }
+}
+
+$username = $_SESSION['username'];
+$user_rank_id = get_user_rank_id($conn, $username);
 ?>
 
 <aside class="sidebar">
@@ -39,48 +24,62 @@
           <i class="fas fa-folder"></i> View Site
         </a>
       </li>
+      <?php if (check_permission($user_rank_id, 'can_manage_categories')) { ?>
       <li>
         <a href="manage_categories.php">
           <i class="fas fa-folder"></i> Manage Categories
         </a>
       </li>
+      <?php } ?>
+      <?php if (check_permission($user_rank_id, 'can_manage_ranks')) { ?>
       <li>
         <a href="manage_ranks.php">
           <i class="fas fa-users"></i> Manage Ranks
         </a>
       </li>
+      <?php } ?>
+      <?php if (check_permission($user_rank_id, 'can_manage_users')) { ?>
       <li>
         <a href="manage_users.php">
           <i class="fas fa-users"></i> Manage Users
         </a>
       </li>
+      <?php } ?>
+      <?php if (check_permission($user_rank_id, 'can_create_guide')) { ?>
       <li>
         <a href="manage_guides.php">
           <i class="fas fa-book"></i> Manage Guides
         </a>
       </li>
+      <?php } ?>
+      <?php if (check_permission($user_rank_id, 'can_manage_reports')) { ?>
       <li>
         <a href="manage_suggestions.php">
           <i class="fas fa-comments"></i> Manage Suggestions
         </a>
       </li>
+      <?php } ?>
+      <?php if (check_permission($user_rank_id, 'can_manage_views')) { ?>
       <li>
         <a href="manage_views.php">
           <i class="fas fa-comments"></i> Manage Views
         </a>
       </li>
+      <?php } ?>
+      <?php if (check_permission($user_rank_id, 'can_manage_system_settings')) { ?>
       <li>
         <a href="manage_settings.php">
           <i class="fas fa-cogs"></i> Manage Settings
         </a>
       </li>
+      <?php } ?>
     </ul>
   </nav>
 
   <?php if (isset($username)) : ?>
     <div class="sidebar-footer">
       Logged in as <br> <b><?php echo $username; ?></b><br>
-      <a href="../logout.php">Logout</a>
+      <a href="../auth/logout.php">Logout</a>
     </div>
   <?php endif; ?>
 </aside>

@@ -66,16 +66,12 @@ function fetch_subcategories($conn, $parent_id) {
     <nav class="user-actions">
       <ul>
         <?php
-        if ($user_rank_number >= 1) {
-          echo "<li><a href=\"/profile.php\">Profile</a></li>";
-        }
-        ?>
-        <?php
         if ($user_rank_number >= 3) {
           echo "<li><a href=\"/admin/index.php\">Dashboard</a></li>";
         }
         ?>
         <?php if (isset($_SESSION['user_id'])): ?>
+          <li><a href="/profile.php">Profile</a></li>
           <li><a href="/auth/logout.php">Log Out (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a></li>
         <?php else: ?>
           <li><a href="/auth/login.php">Login</a></li>

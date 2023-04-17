@@ -79,6 +79,17 @@ if (!empty($_FILES['logo_url']['name'])) {
   $stmt->execute();
 }
 
+$primary_color = $_POST['primary_color'];
+  $secondary_color = $_POST['secondary_color'];
+
+  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'primary_color'");
+  $stmt->bind_param("s", $primary_color);
+  $stmt->execute();
+
+  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'secondary_color'");
+  $stmt->bind_param("s", $secondary_color);
+  $stmt->execute();
+
 
   // Redirect back to manage_settings.php with a success message
   header('Location: manage_settings.php?message=Settings updated.');
@@ -108,6 +119,13 @@ if (!empty($_FILES['logo_url']['name'])) {
       <label for="logo_url">Logo:</label>
       <img src="<?php echo htmlspecialchars($settings['logo_url']); ?>" alt="Current logo" id="current-logo" style="max-width: 200px; max-height: 200px; margin-top: 10px;"><br>
       <input type="file" id="logo_url" name="logo_url" accept="image/*">
+
+      <label for="primary_color">Primary Color:</label>
+      <input type="color" id="primary_color" name="primary_color" value="<?php echo htmlspecialchars($settings['primary_color']); ?>">
+
+      <label for="secondary_color">Secondary Color:</label>
+      <input type="color" id="secondary_color" name="secondary_color" value="<?php echo htmlspecialchars($settings['secondary_color']); ?>">
+
 
       <label for="site_description">Site Description:</label>
       <textarea id="site_description" name="site_description"><?php echo htmlspecialchars($site_description); ?></textarea>

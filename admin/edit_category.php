@@ -35,6 +35,7 @@ $result = $stmt->get_result();
 
 // Generate category options
 $categoriesArray = $result->fetch_all(MYSQLI_ASSOC);
+$options = generateCategoryOptions($categoriesArray, null, "", $category['parent_id']);
 ?>
 
 <!DOCTYPE html>
@@ -53,12 +54,11 @@ $categoriesArray = $result->fetch_all(MYSQLI_ASSOC);
                 <label for="category_name">Category Name:</label>
                 <input type="text" id="category_name" name="category_name" value="<?php echo $category['name']; ?>" required>
 
-                <label for="parent_id">
-                    <select id="parent_id" name="parent_id">
-                        <option value="">Select parent category (optional)</option>
-                        <?php echo generateCategoryOptions($categoriesArray, null, ''); ?>
-                    </select>
-                </label>
+                <label for="parent_id">Parent Category:</label>
+                <select id="parent_id" name="parent_id">
+                    <option value="">Select parent category (optional)</option>
+                    <?php echo $options; ?>
+                </select>
 
                 <button type="submit" name="edit_category">Update Category</button>
             </form>

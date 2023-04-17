@@ -260,3 +260,24 @@ background-color: #e0e0e0;
 .tag i {
 margin-left: 4px;
 }
+
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.permissions-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 5px;
+  align-items: center;
+}
+
+.permissions-container label {
+  grid-column: 1;
+}
+
+.permissions-container input[type="checkbox"] {
+  grid-column: 2;
+}

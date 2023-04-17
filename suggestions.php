@@ -7,10 +7,7 @@ $site_name = get_setting_value($conn, 'site_name');
 <!DOCTYPE html>
 <html>
 <head>
-  <title><?php echo $site_name; ?></title>
-  <link rel="icon" type="image/png" href="public/images/favicon.png">
-  <link rel="stylesheet" type="text/css" href="public/styles/main.css">
-  <link rel="stylesheet" type="text/css" href="public/styles/header.css">
+  <?php include 'head.php'; ?>
   <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
