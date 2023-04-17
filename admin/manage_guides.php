@@ -31,28 +31,27 @@
         die("You don't have permission to access this page.");
       }
 
-      if (isset($_POST['delete_guide'])) {
+      if (isset($_GET['delete_guide'])) {
         // Delete guide
-        $guide_id = $_POST['guide_id'];
-    
+        $guide_id = $_GET['guide_id'];
+      
         // Delete update logs for the guide
         $stmt = $conn->prepare("DELETE FROM guide_updates WHERE guide_id = ?");
         $stmt->bind_param("i", $guide_id);
         $stmt->execute();
-
+      
         // Delete related views for the guide
         $stmt = $conn->prepare("DELETE FROM guide_views WHERE guide_id = ?");
         $stmt->bind_param("i", $guide_id);
         $stmt->execute();
-
-    
+      
         // Delete the guide
         $stmt = $conn->prepare("DELETE FROM guides WHERE id = ?");
         $stmt->bind_param("i", $guide_id);
         $stmt->execute();
-    
+      
         header('Location: manage_guides.php');
-    }    
+      }
 
       // Get all guides
       $stmt = $conn->prepare("SELECT guides.*, categories.name as category_name, users.username as author_username FROM guides LEFT JOIN categories ON guides.category_id = categories.id LEFT JOIN users ON guides.creator_id = users.id ORDER BY id DESC");
@@ -91,7 +90,7 @@
                 //echo "<td>$guide_title</td>";
                 echo "<td>$category_name</td>";
                 echo "<td>$author_username</td>";
-                echo "<td><a href=\"edit_guide.php?id=$guide_id\">Edit</a> | <form method=\"POST\"><input type=\"hidden\" name=\"guide_id\" value=\"$guide_id\"><button type=\"submit\" name=\"delete_guide\" onclick=\"return confirm('Are you sure you want to delete this guide?')\">Delete</button></form></td>";
+                echo "<td><a href=\"edit_guide.php?id=$guide_id\">Edit</a> | <a href=\"manage_guides.php?delete_guide=1&guide_id=$guide_id\" onclick=\"return confirm('Are you sure you want to delete this guide?')\">Delete</a></td>";
                 echo "</tr>";
               }
             } else {

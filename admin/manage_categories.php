@@ -48,10 +48,10 @@ if ($user_rank_number < 3) {
         header('Location: categories.php');
       }
 
-      if (isset($_POST['delete_category'])) {
+      if (isset($_GET['delete_category'])) {
         // Delete category
-        $category_id = $_POST['category_id'];
-
+        $category_id = $_GET['category_id'];
+      
         // Check if category has subcategories
         $stmt = $conn->prepare("SELECT * FROM categories WHERE parent_id = ?");
         $stmt->bind_param("i", $category_id);
@@ -60,11 +60,11 @@ if ($user_rank_number < 3) {
         if ($result->num_rows > 0) {
           die("You can't delete this category because it has subcategories.");
         }
-
+      
         $stmt = $conn->prepare("DELETE FROM categories WHERE id = ?");
         $stmt->bind_param("i", $category_id);
         $stmt->execute();
-
+      
         header('Location: manage_categories.php');
       }
 
@@ -115,8 +115,7 @@ function display_category_row($category, $level = 0) {
     echo "<td>{$category['id']}</td>";
     echo "<td>{$indent}{$category['name']}</td>";
     echo "<td>{$category['parent_name']}</td>";
-    echo "<td><a href=\"edit_category.php?id={$category['id']}\">Edit</a></td>";
-    echo "<td><form method=\"POST\"><input type=\"hidden\" name=\"category_id\" value=\"{$category['id']}\"><button type=\"submit\" name=\"delete_category\" onclick=\"return confirm('Are you sure you want to delete this category?')\">Delete</button></form></td>";
+    echo "<td><a href=\"edit_category.php?id={$category['id']}\">Edit</a> | <a href=\"manage_categories.php?delete_category=1&category_id={$category['id']}\" onclick=\"return confirm('Are you sure you want to delete this category?')\">Delete</a></td>";
     echo "</tr>";
 
     if (isset($category['children'])) {

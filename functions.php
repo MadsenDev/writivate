@@ -15,19 +15,19 @@
     return $tree;
     }
 
-    function generateCategoryOptions($categories, $parent_id = null, $indent = "")
-    {
-        $options = "";
-
-        foreach ($categories as $category) {
-            if ($category['parent_id'] == $parent_id) {
-                $options .= "<option value=\"{$category['id']}\">{$indent}{$category['name']}</option>";
-                $options .= generateCategoryOptions($categories, $category['id'], $indent . "&emsp;");
-            }
-        }
-
-        return $options;
-    }
+    function generateCategoryOptions($categories, $parent_id = null, $indent = "", $selected_category = null) {
+      $options = "";
+  
+      foreach ($categories as $category) {
+          if ($category['parent_id'] == $parent_id) {
+              $selected = ($selected_category !== null && $selected_category == $category['id']) ? 'selected' : '';
+              $options .= "<option value=\"{$category['id']}\" $selected>{$indent}{$category['name']}</option>";
+              $options .= generateCategoryOptions($categories, $category['id'], $indent . "&emsp;", $selected_category);
+          }
+      }
+  
+      return $options;
+  }  
 
     function insertGuideView($guide_id, $user_id) {
         global $conn;
