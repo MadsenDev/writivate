@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $conn->prepare("INSERT INTO suggestions (name, email, suggestion, created_at) VALUES (?, ?, ?, NOW())");
     $stmt->bind_param("sss", $name, $email, $suggestion);
     $stmt->execute();
-
-    header("Location: suggestions.php?success=1");
+  
+    header("Location: submit_success.php");
     exit();
   } else {
     header("Location: suggestions.php?error=1");

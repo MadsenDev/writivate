@@ -19,6 +19,7 @@
           <th>Email</th>
           <th>Suggestion</th>
           <th>Submitted</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -33,6 +34,10 @@
           echo "<td>" . htmlspecialchars($row['email']) . "</td>";
           echo "<td>" . htmlspecialchars($row['suggestion']) . "</td>";
           echo "<td>" . $row['created_at'] . "</td>";
+          echo "<td>";
+          echo "<a href=\"add_guide_from_submission.php?id={$row['id']}\">Create Guide</a> | ";
+          echo "<a href=\"delete_suggestion.php?id={$row['id']}\">Delete</a>";
+          echo "</td>";
           echo "</tr>";
         }
         ?>
