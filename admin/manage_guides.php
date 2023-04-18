@@ -89,7 +89,7 @@
                 echo "<td><a href=\"/guide.php?id=$guide_id\">$guide_title</a></td>";
                 echo "<td>$category_name</td>";
                 echo "<td>$author_username</td>";
-                echo "<td><a href=\"edit_guide.php?id=$guide_id\">Edit</a> | <a href=\"manage_guides.php?delete_guide=1&guide_id=$guide_id\" onclick=\"return confirm('Are you sure you want to delete this guide?')\">Delete</a></td>";
+                echo "<td><a href=\"edit_guide.php?id=$guide_id\">Edit</a> | <a href=\"view_translations.php?guide_id=$guide_id\">View Translations</a> | <a href=\"manage_guides.php?delete_guide=1&guide_id=$guide_id\" onclick=\"return confirm('Are you sure you want to delete this guide?')\">Delete</a></td>";
                 echo "</tr>";
               }
             } else {

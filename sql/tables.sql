@@ -42,6 +42,12 @@ CREATE TABLE `guide_views` (
   `duration` decimal(10,6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+CREATE TABLE `languages` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `language` varchar(255) NOT NULL,
+  `language_code` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
 --
 -- Indexes for dumped tables
 --

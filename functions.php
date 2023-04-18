@@ -166,5 +166,16 @@ function search_guides($conn, $query) {
   $result = $stmt->get_result();
   return $result->fetch_all(MYSQLI_ASSOC);
 }
+
+function generateLanguageOptions($languagesArray, $selected_language = null) {
+  $options = '';
+
+  foreach ($languagesArray as $language) {
+      $selected = ($selected_language === $language['id']) ? ' selected' : '';
+      $options .= '<option value="' . $language['id'] . '"' . $selected . '>' . htmlspecialchars($language['language']) . ' (' . htmlspecialchars($language['language_code']) . ')' . '</option>';
+  }
+
+  return $options;
+}
   
 ?>

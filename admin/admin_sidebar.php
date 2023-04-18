@@ -24,6 +24,13 @@ $user_rank_id = get_user_rank_id($conn, $username);
           <i class="fas fa-folder"></i> View Site
         </a>
       </li>
+      <?php if (check_permission($user_rank_id, 'can_manage_system_settings')) { ?>
+      <li>
+        <a href="manage_languages.php">
+          <i class="fas fa-cogs"></i> Manage Languages
+        </a>
+      </li>
+      <?php } ?>
       <?php if (check_permission($user_rank_id, 'can_manage_categories')) { ?>
       <li>
         <a href="manage_categories.php">

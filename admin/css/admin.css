@@ -281,3 +281,12 @@ margin-left: 4px;
 .permissions-container input[type="checkbox"] {
   grid-column: 2;
 }
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-item {
+  flex-basis: 48%;
+}
