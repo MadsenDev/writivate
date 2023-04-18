@@ -172,8 +172,8 @@ function generateLanguageOptions($languagesArray, $selected_language = null) {
 
   foreach ($languagesArray as $language) {
       $selected = ($selected_language === $language['id']) ? ' selected' : '';
-      $options .= '<option value="' . $language['id'] . '"' . $selected . '>' . htmlspecialchars($language['language']) . ' (' . htmlspecialchars($language['language_code']) . ')' . '</option>';
-  }
+      $options .= '<option value="' . $language['language_code'] . '"' . $selected . '>' . htmlspecialchars($language['language']) . ' (' . htmlspecialchars($language['language_code']) . ')' . '</option>';
+    }
 
   return $options;
 }

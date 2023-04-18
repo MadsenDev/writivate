@@ -55,7 +55,7 @@ $options = generateLanguageOptions($languagesArray);
             <input type="hidden" name="guide_id" value="<?php echo $guide_id; ?>">
             <div class="form-group">
                 <label for="translation-language">Language:</label>
-                <select id="translation-language" name="language" class="form-control">
+                <select id="translation-language" name="language_code" class="form-control">
                     <option value="">Select a language</option>
                     <?php echo $options; ?>
                 </select>

@@ -285,7 +285,6 @@ textarea.form-control {
   gap: 5px;
   justify-content: flex-start;
   font-size: 12px;
-  border: 1px solid #ccc;
   padding: 10px;
   margin-top: 10px;
 }
@@ -300,6 +299,8 @@ textarea.form-control {
   cursor: pointer;
   user-select: none;
   margin-bottom: 5px;
+  white-space: nowrap;
+  margin-right: 5px;
 }
 
 .tag:hover {
@@ -308,4 +309,32 @@ textarea.form-control {
 
 .tag i {
   margin-left: 4px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.language-selection {
+  display: inline-block;
+  padding: 8px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.language-selection label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.language-selection select {
+  padding: 4px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
