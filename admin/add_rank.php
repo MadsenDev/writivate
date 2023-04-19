@@ -4,21 +4,22 @@ include '../functions.php';
 
 if (isset($_POST['add_rank'])) {
     $title = $_POST['title'];
-    $rank_number = $_POST['rank_number'];
     $can_create_guide = isset($_POST['can_create_guide']) ? 1 : 0;
     $can_edit_guide = isset($_POST['can_edit_guide']) ? 1 : 0;
     $can_delete_guide = isset($_POST['can_delete_guide']) ? 1 : 0;
     $can_manage_categories = isset($_POST['can_manage_categories']) ? 1 : 0;
     $can_manage_users = isset($_POST['can_manage_users']) ? 1 : 0;
-    $can_manage_tags = isset($_POST['can_manage_tags']) ? 1 : 0;
     $can_manage_ranks = isset($_POST['can_manage_ranks']) ? 1 : 0;
     $can_manage_views = isset($_POST['can_manage_views']) ? 1 : 0;
-    $can_manage_comments = isset($_POST['can_manage_comments']) ? 1 : 0;
-    $can_manage_reports = isset($_POST['can_manage_reports']) ? 1 : 0;
     $can_manage_system_settings = isset($_POST['can_manage_system_settings']) ? 1 : 0;
+    $can_add_translations = isset($_POST['can_add_translations']) ? 1 : 0;
+    $can_delete_translations = isset($_POST['can_delete_translations']) ? 1 : 0;
+    $can_edit_translations = isset($_POST['can_edit_translations']) ? 1 : 0;
+    $can_manage_language = isset($_POST['can_manage_language']) ? 1 : 0;
+    $can_manage_suggestions = isset($_POST['can_manage_suggestions']) ? 1 : 0;
 
-    $stmt = $conn->prepare("INSERT INTO ranks (title, rank_number, can_create_guide, can_edit_guide, can_delete_guide, can_manage_categories, can_manage_users, can_manage_tags, can_manage_ranks, can_manage_views, can_manage_comments, can_manage_reports, can_manage_system_settings) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("siiiiiiiiiiii", $title, $rank_number, $can_create_guide, $can_edit_guide, $can_delete_guide, $can_manage_categories, $can_manage_users, $can_manage_tags, $can_manage_ranks, $can_manage_views, $can_manage_comments, $can_manage_reports, $can_manage_system_settings);
+    $stmt = $conn->prepare("INSERT INTO ranks (title, can_create_guide, can_edit_guide, can_delete_guide, can_manage_categories, can_manage_users, can_manage_ranks, can_manage_views, can_manage_system_settings, can_add_translations, can_delete_translations, can_edit_translations, can_manage_language, can_manage_suggestions) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("siiiiiiiiiiiii", $title, $can_create_guide, $can_edit_guide, $can_delete_guide, $can_manage_categories, $can_manage_users, $can_manage_ranks, $can_manage_views, $can_manage_system_settings, $can_add_translations, $can_delete_translations, $can_edit_translations, $can_manage_language, $can_manage_suggestions);
     $stmt->execute();
 
     header('Location: manage_ranks.php');
@@ -41,9 +42,6 @@ if (isset($_POST['add_rank'])) {
                     <div>
                         <label for="title">Title:</label>
                         <input type="text" id="title" name="title" required>
-                        
-                        <label for="rank_number">Rank Number:</label>
-                        <input type="number" id="rank_number" name="rank_number" required>
                     </div>
                     <div class="permissions-container">
                         <?php
@@ -53,12 +51,14 @@ if (isset($_POST['add_rank'])) {
                             "can_delete_guide" => "Can Delete Guide",
                             "can_manage_categories" => "Can Manage Categories",
                             "can_manage_users" => "Can Manage Users",
-                            "can_manage_tags" => "Can Manage Tags",
                             "can_manage_ranks" => "Can Manage Ranks",
                             "can_manage_views" => "Can Manage Views",
-                            "can_manage_comments" => "Can Manage Comments",
-                            "can_manage_reports" => "Can Manage Reports",
-                            "can_manage_system_settings" => "Can Manage System Settings"
+                            "can_manage_system_settings" => "Can Manage System Settings",
+                            "can_add_translations" => "Can Add Translations",
+                            "can_delete_translations" => "Can Delete Translations",
+                            "can_edit_translations" => "Can Edit Translations",
+                            "can_manage_language" => "Can Manage Language",
+                            "can_manage_suggestions" => "Can Manage Suggestions"
                         ];
 
                         foreach ($permissions as $permission_key => $permission_label) {

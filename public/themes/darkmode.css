@@ -1,0 +1,128 @@
+body {
+    color: #faf7f7;
+    background-color: #000000;
+  }
+  
+  a {
+    color: #eed3cd;
+  }
+  
+  a:hover {
+    color: #df856f;
+  }
+
+  aside {
+    background: #111111;
+  }
+
+  aside a {
+    color: #d6d2d2;
+  }
+  
+  aside a:hover {
+    background-color: #5f5e5e;
+  }
+  
+  .content {
+    background-color: #141414;
+  }
+
+  .recently-viewed-guides {
+    border: 1px solid #0f0f0f;
+  }
+
+  .recently-viewed-guides li {
+    border-bottom: 1px solid #1f1e1e;
+  }
+
+  .recently-viewed-guides span {
+    color: #888;
+  }
+
+  .markdown-body pre {
+    background: #333333;
+    border: 1px solid #1d1d1d;
+  }
+
+  .updates-list {
+    border: 1px solid #333232;
+  }
+
+  .search-form {
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  }
+
+  .search-form input {
+    color: #d8d7d7;
+    background-color: #3f3e3e;
+  }
+  
+  .search-form button {
+    background-color: #3b3b3a;
+    color: #ffffff;
+  }
+  
+  .search-form button:hover {
+    background-color: #525050;
+  }
+
+  .form-control {
+    border: 1px solid #252525;
+  }
+
+  .btn-primary {
+    background-color: #383737;
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #4e4e4e;
+  }
+
+  .profile-rank {
+    color: #888;
+  }
+
+  .tag {
+    background-color: #363535;
+  }
+  
+  .tag:hover {
+    background-color: #504f4f;
+  }
+
+  .language-selection {
+    background-color: #333232;
+    border: 1px solid #252525;
+  }
+
+  .language-selection select {
+    border: 1px solid #242323;
+  }
+  
+  header {
+    background-color: #111111;
+    color: #fff;
+  }
+
+  nav a {
+    color: #cecccc;
+  }
+  
+  nav a:hover {
+    background-color: #646363;
+  }
+  
+  nav ul li ul.submenu {
+    background-color: rgb(65, 63, 63);
+    box-shadow: 0px 8px 16px 0px rgba(255, 255, 255, 0.2);
+  }
+
+  nav ul li ul.submenu li a:hover {
+    background-color: #2c2c2c;
+  }
+
+  footer {
+    color: #d8d5d5;
+  }

@@ -17,23 +17,24 @@
       include '../functions.php';
       include '../config.php';
 
-      // Fetch the user's rank number from the database
-$user_rank_number = 0;
-if (isset($_SESSION['user_id'])) {
-  $user_id = $_SESSION['user_id'];
-  $stmt = $conn->prepare("SELECT rank_number FROM users INNER JOIN ranks ON users.rank_id = ranks.id WHERE users.id = ?");
-  $stmt->bind_param("i", $user_id);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $user_rank_number = $row['rank_number'];
-  }
-}
+      // Fetch the user's rank ID from the database
+      $user_rank_id = 0;
+      if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $stmt = $conn->prepare("SELECT rank_id FROM users WHERE id = ?");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+          $row = $result->fetch_assoc();
+          $user_rank_id = $row['rank_id'];
+        }
+      }
 
-if ($user_rank_number < 3) {
-  die("You don't have permission to access this page.");
-}
+      // Check if the user has the permission to manage categories
+      if (!check_permission($user_rank_id, 'can_manage_categories')) {
+        die("You don't have permission to access this page.");
+      }
 
       if (isset($_POST['edit_category'])) {
         // Edit category

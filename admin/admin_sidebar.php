@@ -3,6 +3,17 @@ session_start();
 include '../config.php';
 include 'check_permissions.php';
 
+// Fetch content_type_plural and content_type_single from the 'settings' table
+$stmt = $conn->prepare("SELECT name, value FROM settings WHERE name = 'content_type_plural' OR name = 'content_type_single'");
+$stmt->execute();
+$result = $stmt->get_result();
+$content_types = [];
+while ($row = $result->fetch_assoc()) {
+  $content_types[$row['name']] = $row['value'];
+}
+$content_type_plural = $content_types['content_type_plural'];
+$content_type_single = $content_types['content_type_single'];
+
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {
     header('Location: ../auth/login.php');
@@ -55,11 +66,11 @@ $user_rank_id = get_user_rank_id($conn, $username);
       <?php if (check_permission($user_rank_id, 'can_create_guide')) { ?>
       <li>
         <a href="manage_guides.php">
-          <i class="fas fa-book"></i> Manage Guides
+          <i class="fas fa-book"></i> Manage <?php echo htmlspecialchars($content_type_plural); ?>
         </a>
       </li>
       <?php } ?>
-      <?php if (check_permission($user_rank_id, 'can_manage_reports')) { ?>
+      <?php if (check_permission($user_rank_id, 'can_manage_suggestions')) { ?>
       <li>
         <a href="manage_suggestions.php">
           <i class="fas fa-comments"></i> Manage Suggestions

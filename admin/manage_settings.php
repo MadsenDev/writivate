@@ -7,14 +7,15 @@ if (!isset($_SESSION['user_id'])) {
   header('Location: ../login.php');
   exit();
 }
-$user_id = $_SESSION['user_id'];
-$stmt = $conn->prepare("SELECT rank_number FROM users INNER JOIN ranks ON users.rank_id = ranks.id WHERE users.id = ?");
+// Fetch the user's rank ID from the database
+$user_rank_id = 0;
+$stmt = $conn->prepare("SELECT rank_id FROM users WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
-if ($result->num_rows == 0 || $result->fetch_assoc()['rank_number'] < 3) {
-  header('Location: ../index.php');
-  exit();
+if ($result->num_rows > 0) {
+  $row = $result->fetch_assoc();
+  $user_rank_id = $row['rank_id'];
 }
 
 
@@ -34,6 +35,7 @@ $contact_email = $settings['contact_email'];
 $footer_text = $settings['footer_text'];
 $content_type_plural = $settings['content_type_plural'];
 $content_type_single = $settings['content_type_single'];
+$registration_enabled = $settings['registration_enabled'];
 
 // Handle form submissions
 if (isset($_POST['update_settings'])) {
@@ -42,134 +44,158 @@ if (isset($_POST['update_settings'])) {
   $contact_email = $_POST['contact_email'];
 
   $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'site_name'");
-$stmt->bind_param("s", $site_title);
-$stmt->execute();
-
-$stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'site_description'");
-$stmt->bind_param("s", $site_description);
-$stmt->execute();
-
-$stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'contact_email'");
-$stmt->bind_param("s", $contact_email);
-$stmt->execute();
-
-// Handle logo upload
-if (!empty($_FILES['logo_url']['name'])) {
-  $target_dir = "../public/images/";
-  $target_file = $target_dir . basename($_FILES['logo_url']['name']);
-  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-  // Check if the file is actually an image
-  $check = getimagesize($_FILES['logo_url']['tmp_name']);
-  if ($check === false) {
-    die("File is not an image.");
-  }
-
-  // Allow only certain file formats
-  if ($imageFileType !== "jpg" && $imageFileType !== "png" && $imageFileType !== "jpeg" && $imageFileType !== "gif") {
-    die("Sorry, only JPG, JPEG, PNG, and GIF files are allowed.");
-  }
-
-  // Move the uploaded file to the target directory
-  if (!move_uploaded_file($_FILES['logo_url']['tmp_name'], $target_file)) {
-    die("Sorry, there was an error uploading your file.");
-  }
-
-  // Update the logo URL in the database
-  $logo_url = "/public/images/" . basename($_FILES['logo_url']['name']);
-  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'logo_url'");
-  $stmt->bind_param("s", $logo_url);
+  $stmt->bind_param("s", $site_title);
   $stmt->execute();
-}
 
-$primary_color = $_POST['primary_color'];
+  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'site_description'");
+  $stmt->bind_param("s", $site_description);
+  $stmt->execute();
+
+  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'contact_email'");
+  $stmt->bind_param("s", $contact_email);
+  $stmt->execute();
+
+  // Handle logo upload
+  if (!empty($_FILES['logo_url']['name'])) {
+    $target_dir = "../public/images/";
+    $target_file = $target_dir . basename($_FILES['logo_url']['name']);
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Check if the file is actually an image
+    $check = getimagesize($_FILES['logo_url']['tmp_name']);
+    if ($check === false) {
+      die("File is not an image.");
+    }
+
+    // Allow only certain file formats
+    if ($imageFileType !== "jpg" && $imageFileType !== "png" && $imageFileType !== "jpeg" && $imageFileType !== "gif") {
+      die("Sorry, only JPG, JPEG, PNG, and GIF files are allowed.");
+    }
+
+    // Move the uploaded file to the target directory
+    if (!move_uploaded_file($_FILES['logo_url']['tmp_name'], $target_file)) {
+      die("Sorry, there was an error uploading your file.");
+    }
+
+    // Update the logo URL in the database
+    $logo_url = "/public/images/" . basename($_FILES['logo_url']['name']);
+    $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'logo_url'");
+    $stmt->bind_param("s", $logo_url);
+    $stmt->execute();
+  }
+
+  $primary_color = $_POST['primary_color'];
   $secondary_color = $_POST['secondary_color'];
-
+  
   $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'primary_color'");
   $stmt->bind_param("s", $primary_color);
   $stmt->execute();
-
+  
   $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'secondary_color'");
   $stmt->bind_param("s", $secondary_color);
   $stmt->execute();
-
+  
   // Update footer_text, content_type_plural, and content_type_single in the database
   $footer_text = $_POST['footer_text'];
   $content_type_plural = $_POST['content_type_plural'];
   $content_type_single = $_POST['content_type_single'];
-
+  
   $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'footer_text'");
   $stmt->bind_param("s", $footer_text);
   $stmt->execute();
-
+  
   $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'content_type_plural'");
   $stmt->bind_param("s", $content_type_plural);
   $stmt->execute();
-
+  
   $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'content_type_single'");
   $stmt->bind_param("s", $content_type_single);
   $stmt->execute();
-
-
+  
+  // Update registration_enabled in the database
+  $registration_enabled = $_POST['registration_enabled'];
+  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'registration_enabled'");
+  $stmt->bind_param("s", $registration_enabled);
+  $stmt->execute();
+  
   // Redirect back to manage_settings.php with a success message
   header('Location: manage_settings.php?message=Settings updated.');
   exit();
-}
+  }
+  
+  ?>
+  
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Wiki - Manage Settings</title>
+    <link rel="icon" type="image/png" href="/public/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+  </head>
+  <body>
+  <?php include 'admin_sidebar.php'; ?>
+  <main>
+    <div class="content"><?php
+    // If the user doesn't have permission to access this page
+if (!check_permission($user_rank_id, 'can_manage_system_settings')) {
+  die("You don't have permission to access this page.");
+} ?>
+      <h1>Manage Settings</h1>
+      <form method="POST" enctype="multipart/form-data">
+  <fieldset>
+    <legend>General</legend>
+    <label for="site_title">Site Title:</label>
+    <input type="text" id="site_title" name="site_title" value="<?php echo htmlspecialchars($site_title); ?>">
 
-?>
+    <label for="site_description">Site Description:</label>
+    <textarea id="site_description" name="site_description"><?php echo htmlspecialchars($site_description); ?></textarea>
+  </fieldset>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Wiki - Manage Settings</title>
-  <link rel="icon" type="image/png" href="/public/images/favicon.png">
-  <link rel="stylesheet" type="text/css" href="css/admin.css">
-</head>
-<body>
-<?php include 'admin_sidebar.php'; ?>
+  <fieldset>
+    <legend>Branding</legend>
+    <label for="logo_url">Logo:</label>
+    <img src="<?php echo htmlspecialchars($settings['logo_url']); ?>" alt="Current logo" id="current-logo" style="max-width: 200px; max-height: 200px; margin-top: 10px;"><br>
+    <input type="file" id="logo_url" name="logo_url" accept="image/*">
 
-<main>
-  <div class="content">
-    <h1>Manage Settings</h1>
-
-    <form method="POST" enctype="multipart/form-data">
-      <label for="site_title">Site Title:</label>
-      <input type="text" id="site_title" name="site_title" value="<?php echo htmlspecialchars($site_title); ?>">
-
-      <label for="logo_url">Logo:</label>
-      <img src="<?php echo htmlspecialchars($settings['logo_url']); ?>" alt="Current logo" id="current-logo" style="max-width: 200px; max-height: 200px; margin-top: 10px;"><br>
-      <input type="file" id="logo_url" name="logo_url" accept="image/*">
-
+    <div class="color-group">
       <label for="primary_color">Primary Color:</label>
       <input type="color" id="primary_color" name="primary_color" value="<?php echo htmlspecialchars($settings['primary_color']); ?>">
 
       <label for="secondary_color">Secondary Color:</label>
       <input type="color" id="secondary_color" name="secondary_color" value="<?php echo htmlspecialchars($settings['secondary_color']); ?>">
+    </div>
+    </fieldset>
+  <fieldset>
+    <legend>Content Types</legend>
+    <label for="content_type_plural">Content Type Plural:</label>
+    <input type="text" id="content_type_plural" name="content_type_plural" value="<?php echo htmlspecialchars($content_type_plural); ?>">
+    <label for="content_type_single">Content Type Single:</label>
+<input type="text" id="content_type_single" name="content_type_single" value="<?php echo htmlspecialchars($content_type_single); ?>">
+</fieldset>
+  <fieldset>
+    <legend>Contact & Footer</legend>
+    <label for="contact_email">Contact Email:</label>
+    <input type="email" id="contact_email" name="contact_email" value="<?php echo htmlspecialchars($contact_email); ?>">
+    <label for="footer_text">Footer Text:</label>
+<input type="text" id="footer_text" name="footer_text" value="<?php echo htmlspecialchars($footer_text); ?>">
+</fieldset>
+  <fieldset>
+    <legend>Registration</legend>
+    <label for="registration_enabled">Registration Enabled:</label>
+    <select id="registration_enabled" name="registration_enabled">
+      <option value="1" <?php echo ($settings['registration_enabled'] == 1) ? 'selected' : ''; ?>>Enabled</option>
+      <option value="0" <?php echo ($settings['registration_enabled'] == 0) ? 'selected' : ''; ?>>Disabled</option>
+    </select>
+  </fieldset>
+<button type="submit" name="update_settings">Update Settings</button>
 
-
-      <label for="site_description">Site Description:</label>
-      <textarea id="site_description" name="site_description"><?php echo htmlspecialchars($site_description); ?></textarea>
-
-      <label for="footer_text">Footer Text:</label>
-      <input type="text" id="footer_text" name="footer_text" value="<?php echo htmlspecialchars($footer_text); ?>">
-
-      <label for="content_type_plural">Content Type Plural:</label>
-      <input type="text" id="content_type_plural" name="content_type_plural" value="<?php echo htmlspecialchars($content_type_plural); ?>">
-
-      <label for="content_type_single">Content Type Single:</label>
-      <input type="text" id="content_type_single" name="content_type_single" value="<?php echo htmlspecialchars($content_type_single); ?>">
-
-      <label for="contact_email">Contact Email:</label>
-      <input type="email" id="contact_email" name="contact_email" value="<?php echo htmlspecialchars($contact_email); ?>">
-
-      <button type="submit" name="update_settings">Update Settings</button>
-      <?php
+  <?php
     if (isset($_GET['message'])) {
       echo '<p class="success">' . htmlspecialchars($_GET['message']) . '</p>';
     }
-    ?>
-    </form>
-  </div>
+  ?>
+</form>
+</div>
 </main>
 </body>
 </html>

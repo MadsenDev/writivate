@@ -1,3 +1,23 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+include '../config.php';
+
+// Fetch the registration_enabled setting
+$stmt = $conn->prepare("SELECT value FROM settings WHERE name = 'registration_enabled'");
+$stmt->execute();
+$result = $stmt->get_result();
+$registration_enabled = $result->fetch_assoc()['value'];
+
+// Redirect users to the home page if registration is disabled
+if ($registration_enabled == '0') {
+  header('Location: ../index.php');
+  exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>

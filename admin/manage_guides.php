@@ -6,62 +6,49 @@
     <link rel="stylesheet" type="text/css" href="css/admin.css">
   </head>
   <body>
-    <?php include 'admin_sidebar.php'; ?>
     <?php
+    include 'admin_sidebar.php';
+
+    // If the user doesn't have permission to access this page
+    if (!check_permission($user_rank_id, 'can_create_guide')) {
+      die("You don't have permission to access this page.");
+    }
+
+    include '../config.php';
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
-      //session_start();
-      include '../config.php';
 
-      // Fetch the user's rank number from the database
-      $user_rank_number = 0;
-      if (isset($_SESSION['user_id'])) {
-        $user_id = $_SESSION['user_id'];
-        $stmt = $conn->prepare("SELECT rank_number FROM users INNER JOIN ranks ON users.rank_id = ranks.id WHERE users.id = ?");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-          $row = $result->fetch_assoc();
-          $user_rank_number = $row['rank_number'];
-        }
-      }
+    if (isset($_GET['delete_guide']) && check_permission($user_rank_id, 'can_delete_guide')) {
+      // Delete guide
+      $guide_id = $_GET['guide_id'];
 
-      if ($user_rank_number < 3) {
-        die("You don't have permission to access this page.");
-      }
-
-      if (isset($_GET['delete_guide'])) {
-        // Delete guide
-        $guide_id = $_GET['guide_id'];
-      
-        // Delete update logs for the guide
-        $stmt = $conn->prepare("DELETE FROM guide_updates WHERE guide_id = ?");
-        $stmt->bind_param("i", $guide_id);
-        $stmt->execute();
-      
-        // Delete related views for the guide
-        $stmt = $conn->prepare("DELETE FROM guide_views WHERE guide_id = ?");
-        $stmt->bind_param("i", $guide_id);
-        $stmt->execute();
-      
-        // Delete the guide
-        $stmt = $conn->prepare("DELETE FROM guides WHERE id = ?");
-        $stmt->bind_param("i", $guide_id);
-        $stmt->execute();
-      
-        header('Location: manage_guides.php');
-      }
-
-      // Get all guides
-      $stmt = $conn->prepare("SELECT guides.*, categories.name as category_name, users.username as author_username FROM guides LEFT JOIN categories ON guides.category_id = categories.id LEFT JOIN users ON guides.creator_id = users.id ORDER BY id DESC");
+      // Delete update logs for the guide
+      $stmt = $conn->prepare("DELETE FROM guide_updates WHERE guide_id = ?");
+      $stmt->bind_param("i", $guide_id);
       $stmt->execute();
-      $result = $stmt->get_result();
+
+      // Delete related views for the guide
+      $stmt = $conn->prepare("DELETE FROM guide_views WHERE guide_id = ?");
+      $stmt->bind_param("i", $guide_id);
+      $stmt->execute();
+
+      // Delete the guide
+      $stmt = $conn->prepare("DELETE FROM guides WHERE id = ?");
+      $stmt->bind_param("i", $guide_id);
+      $stmt->execute();
+
+      header('Location: manage_guides.php');
+    }
+
+    // Get all guides
+    $stmt = $conn->prepare("SELECT guides.*, categories.name as category_name, users.username as author_username FROM guides LEFT JOIN categories ON guides.category_id = categories.id LEFT JOIN users ON guides.creator_id = users.id ORDER BY id DESC");
+    $stmt->execute();
+    $result = $stmt->get_result();
     ?>
 
     <main>
       <div class="content">
-        <h1>Manage Guides <a href="add_guide.php">Add Guide</a></h1>
+        <h1>Manage <?php echo htmlspecialchars($content_type_plural); ?> <a href="add_guide.php">Add <?php echo htmlspecialchars($content_type_single); ?></a></h1>
 
         <table>
           <thead>
@@ -83,22 +70,30 @@
                 $category_name = $row['category_name'];
                 $author_username = $row['author_username'];
 
-                // output guide data
+                // Output guide data
                 echo "<tr>";
                 echo "<td>$guide_id</td>";
                 echo "<td><a href=\"/guide.php?id=$guide_id\">$guide_title</a></td>";
                 echo "<td>$category_name</td>";
                 echo "<td>$author_username</td>";
-                echo "<td><a href=\"edit_guide.php?id=$guide_id\">Edit</a> | <a href=\"view_translations.php?guide_id=$guide_id\">View Translations</a> | <a href=\"manage_guides.php?delete_guide=1&guide_id=$guide_id\" onclick=\"return confirm('Are you sure you want to delete this guide?')\">Delete</a></td>";
+                echo "<td>";
+                if (check_permission($user_rank_id, 'can_edit_guide')) {
+                  echo "<a href=\"edit_guide.php?id=$guide_id\">Edit</a> | ";
+                }
+                echo "<a href=\"view_translations.php?guide_id=$guide_id\">View Translations</a>";
+                if (check_permission($user_rank_id, 'can_delete_guide')) {
+                  echo " | <a href=\"manage_guides.php?delete_guide=1&guide_id=$guide_id\" onclick=\"return confirm('Are you sure you want to delete this guide?')\">Delete</a>";
+                }
+                echo "</td>";
                 echo "</tr>";
               }
             } else {
-              echo "No guides found.";
+              echo "Nothing found.";
             }
             ?>
           </tbody>
         </table>
       </div>
     </main>
-    </body>
-    </html>
+  </body>
+</html>

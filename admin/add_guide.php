@@ -21,7 +21,7 @@
     ?>
     <main>
       <div class="content">
-        <h1>Add Guide</h1>
+        <h1>Add <?php echo htmlspecialchars($content_type_single); ?></h1>
         <form method="POST" action="save_guide.php">
           <div class="form-group">
             <label for="guide-title">Title:</label>
@@ -42,7 +42,7 @@
             <label for="guide-content">Content:</label>
             <textarea id="guide-content" name="content" class="form-control"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Save Guide</button>
+          <button type="submit" class="btn btn-primary">Save <?php echo htmlspecialchars($content_type_single); ?></button>
         </form>
         <script src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.js"></script>
         <script>

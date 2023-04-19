@@ -16,7 +16,7 @@
 
     <main>
       <div class="content">
-        <h1>Edit Guide</h1>
+        <h1>Edit <?php echo htmlspecialchars($content_type_single); ?></h1>
         <?php
           $id = $_GET['id'];
           $stmt = $conn->prepare("SELECT * FROM guides WHERE id = ?");
@@ -69,7 +69,7 @@
             <label for="guide-content">Content:</label>
             <textarea id="guide-content" name="content" class="form-control"><?php echo $content; ?></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Update Guide</button>
+          <button type="submit" class="btn btn-primary">Update <?php echo htmlspecialchars($content_type_single); ?></button>
         </form>
         <script src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.js"></script>
         <script>

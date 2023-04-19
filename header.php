@@ -3,17 +3,8 @@ include 'config.php';
 session_start();
 
 // Fetch the user's rank number from the database
-$user_rank_number = 0;
 if (isset($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
-  $stmt = $conn->prepare("SELECT rank_number FROM users INNER JOIN ranks ON users.rank_id = ranks.id WHERE users.id = ?");
-  $stmt->bind_param("i", $user_id);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $user_rank_number = $row['rank_number'];
-  }
 }
 
 // Fetch logo URL from the database
@@ -37,6 +28,17 @@ function fetch_subcategories($conn, $parent_id) {
   $stmt->bind_param("i", $parent_id);
   $stmt->execute();
   return $stmt->get_result();
+}
+
+// Fetch registration_enabled setting from the database
+$stmt = $conn->prepare("SELECT value FROM settings WHERE name = 'registration_enabled'");
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows > 0) {
+  $row = $result->fetch_assoc();
+  $registration_enabled = $row['value'];
+} else {
+  $registration_enabled = 1; // Default to enabled in case it's not found in the database
 }
 
 ?>
@@ -65,17 +67,15 @@ function fetch_subcategories($conn, $parent_id) {
     </nav>
     <nav class="user-actions">
       <ul>
-        <?php
-        if ($user_rank_number >= 3) {
-          echo "<li><a href=\"/admin/index.php\">Dashboard</a></li>";
-        }
-        ?>
         <?php if (isset($_SESSION['user_id'])): ?>
+          <li><a href="/admin/index.php">Dashboard</a></li>
           <li><a href="/profile.php">Profile</a></li>
           <li><a href="/auth/logout.php">Log Out (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a></li>
         <?php else: ?>
           <li><a href="/auth/login.php">Login</a></li>
-          <li><a href="/auth/register.php">Register</a></li>
+          <?php if ($registration_enabled == 1): ?>
+            <li><a href="/auth/register.php">Register</a></li>
+          <?php endif; ?>
         <?php endif; ?>
       </ul>
     </nav>

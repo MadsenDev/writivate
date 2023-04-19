@@ -3,7 +3,7 @@ include '../config.php';
 include '../functions.php';
 
 // Fetch all ranks
-$stmt = $conn->prepare("SELECT * FROM ranks ORDER BY rank_number");
+$stmt = $conn->prepare("SELECT * FROM ranks");
 $stmt->execute();
 $result = $stmt->get_result();
 $ranks = $result->fetch_all(MYSQLI_ASSOC);
@@ -25,7 +25,6 @@ $ranks = $result->fetch_all(MYSQLI_ASSOC);
                 <tr>
                     <th>ID</th>
                     <th>Title</th>
-                    <th>Rank Number</th>
                     <th>Permissions</th>
                     <th>Actions</th>
                 </tr>
@@ -33,7 +32,6 @@ $ranks = $result->fetch_all(MYSQLI_ASSOC);
                     <tr>
                         <td><?php echo $rank['id']; ?></td>
                         <td><?php echo $rank['title']; ?></td>
-                        <td><?php echo $rank['rank_number']; ?></td>
                         <td>
                             <?php
                             $permissions = [];
@@ -42,12 +40,14 @@ $ranks = $result->fetch_all(MYSQLI_ASSOC);
                             if ($rank['can_delete_guide']) $permissions[] = 'Delete Guides';
                             if ($rank['can_manage_categories']) $permissions[] = 'Manage Categories';
                             if ($rank['can_manage_users']) $permissions[] = 'Manage Users';
-                            if ($rank['can_manage_tags']) $permissions[] = 'Manage Tags';
                             if ($rank['can_manage_ranks']) $permissions[] = 'Manage Ranks';
                             if ($rank['can_manage_views']) $permissions[] = 'Manage Views';
-                            if ($rank['can_manage_comments']) $permissions[] = 'Manage Comments';
-                            if ($rank['can_manage_reports']) $permissions[] = 'Manage Reports';
                             if ($rank['can_manage_system_settings']) $permissions[] = 'Manage System Settings';
+                            if ($rank['can_add_translations']) $permissions[] = 'Add Translations';
+                            if ($rank['can_delete_translations']) $permissions[] = 'Delete Translations';
+                            if ($rank['can_edit_translations']) $permissions[] = 'Edit Translations';
+                            if ($rank['can_manage_language']) $permissions[] = 'Manage Language';
+                            if ($rank['can_manage_suggestions']) $permissions[] = 'Manage Suggestions';
 
                             echo implode(', ', $permissions);
                             ?>

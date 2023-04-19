@@ -7,18 +7,14 @@ body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
   width: 70%;
-  color: #3f3e3e;
-  background-color: #f5f5f5;
   margin: 0 auto;
 }
 
 a {
-  color: #ff3300;
   text-decoration: none;
 }
 
 a:hover {
-  color: #5a342a;
   text-decoration: none;
 }
 
@@ -29,14 +25,12 @@ a:hover {
 }
 
 aside {
-  background: #fcfcfc;
   padding: 10px;
   width: 25%;
   position: sticky;
   top: 0;
   flex-shrink: 0;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 aside h2 {
@@ -57,14 +51,12 @@ aside li {
 aside a {
   display: block;
   font-size: 14px;
-  color: #3a3a3a;
   padding: 5px 10px;
   border-radius: 5px;
   transition: background-color 0.2s;
 }
 
 aside a:hover {
-  background-color: #f0f0f0;
   text-decoration: none;
 }
 
@@ -72,9 +64,7 @@ aside a:hover {
   width: 75%;
   padding: 20px;
   flex: 1;
-  background-color: #ffffff;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .content img {
@@ -93,7 +83,6 @@ aside a:hover {
 
 .recently-viewed-guides {
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 5px;
 }
 
@@ -110,7 +99,6 @@ aside a:hover {
 
 .recently-viewed-guides li {
   padding: 10px;
-  border-bottom: 1px solid #ccc;
 }
 
 .recently-viewed-guides li:last-child {
@@ -124,7 +112,6 @@ aside a:hover {
 
 .recently-viewed-guides span {
   font-size: 14px;
-  color: #888;
   display: block;
   margin-top: 5px;
 }
@@ -152,14 +139,11 @@ aside a:hover {
 }
 
 .markdown-body pre {
-  background: #f4f4f4;
   padding: 10px;
-  border: 1px solid #ddd;
 }
 
 .updates-list {
   font-size: 12px;
-  border: 1px solid #ccc;
   padding-left: 10px;
   margin-top: 10px;
 }
@@ -184,10 +168,8 @@ aside a:hover {
   display: flex;
   max-width: 400px;
   width: 100%;
-  border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .search-form input {
@@ -196,23 +178,15 @@ aside a:hover {
   outline: none;
   font-size: 16px;
   padding: 10px;
-  color: #3f3e3e;
-  background-color: #f5f5f5;
 }
 
 .search-form button {
   border: none;
   outline: none;
-  background-color: #ff3c00;
-  color: #ffffff;
   font-size: 16px;
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.2s;
-}
-
-.search-form button:hover {
-  background-color: #b30000;
 }
 
 /* Suggestions container */
@@ -235,7 +209,6 @@ aside a:hover {
   width: 100%;
   padding: 8px;
   font-size: 16px;
-  border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
   box-sizing: border-box;
@@ -256,13 +229,7 @@ textarea.form-control {
 }
 
 .btn-primary {
-  background-color: #ff3c00;
-  color: #fff;
   transition: background-color 0.2s;
-}
-
-.btn-primary:hover {
-  background-color: #b30000;
 }
 
 .profile-username {
@@ -274,7 +241,6 @@ textarea.form-control {
 
 .profile-rank {
   font-size: 12px;
-  color: #888;
   padding-top: 0px;
   margin-top: 0px;
 }
@@ -292,7 +258,6 @@ textarea.form-control {
 .tag {
   display: flex;
   align-items: center;
-  background-color: #f1f1f1;
   padding: 4px 8px;
   border-radius: 14px;
   font-size: 0.9em;
@@ -301,10 +266,6 @@ textarea.form-control {
   margin-bottom: 5px;
   white-space: nowrap;
   margin-right: 5px;
-}
-
-.tag:hover {
-  background-color: #e0e0e0;
 }
 
 .tag i {
@@ -321,9 +282,7 @@ textarea.form-control {
 .language-selection {
   display: inline-block;
   padding: 8px;
-  background-color: #f8f8f8;
   border-radius: 5px;
-  border: 1px solid #ccc;
 }
 
 .language-selection label {
@@ -335,6 +294,96 @@ textarea.form-control {
 .language-selection select {
   padding: 4px;
   font-size: 14px;
-  border: 1px solid #ccc;
   border-radius: 3px;
+}
+
+header {
+  padding: 10px 0;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+nav.categories {
+  margin-right: auto;
+}
+
+nav.user-actions {
+  margin-left: 20px;
+}
+
+.logo img {
+  max-height: 50px;
+  width: auto;
+  vertical-align: middle;
+}
+
+nav {
+  font-size: 1.1em;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+  position: relative;
+  border-radius: 5px;
+}
+
+nav ul li:last-child {
+  margin-right: 0;
+}
+
+nav a {
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+nav ul li ul.submenu {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  z-index: 1;
+}
+
+nav ul li ul.submenu li {
+  display: block;
+  width: 100%;
+}
+
+nav ul li ul.submenu li a {
+  padding: 12px 16px;
+}
+
+nav ul li:hover ul.submenu {
+  display: block;
+}
+
+footer {
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 2px;
+  clear: both;
+}
+
+footer p {
+  vertical-align: middle;
+  margin-bottom: 0;
 }
