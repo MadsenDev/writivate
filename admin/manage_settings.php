@@ -31,6 +31,9 @@ while ($row = $result->fetch_assoc()) {
 $site_title = $settings['site_name'];
 $site_description = $settings['site_description'];
 $contact_email = $settings['contact_email'];
+$footer_text = $settings['footer_text'];
+$content_type_plural = $settings['content_type_plural'];
+$content_type_single = $settings['content_type_single'];
 
 // Handle form submissions
 if (isset($_POST['update_settings'])) {
@@ -90,6 +93,23 @@ $primary_color = $_POST['primary_color'];
   $stmt->bind_param("s", $secondary_color);
   $stmt->execute();
 
+  // Update footer_text, content_type_plural, and content_type_single in the database
+  $footer_text = $_POST['footer_text'];
+  $content_type_plural = $_POST['content_type_plural'];
+  $content_type_single = $_POST['content_type_single'];
+
+  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'footer_text'");
+  $stmt->bind_param("s", $footer_text);
+  $stmt->execute();
+
+  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'content_type_plural'");
+  $stmt->bind_param("s", $content_type_plural);
+  $stmt->execute();
+
+  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'content_type_single'");
+  $stmt->bind_param("s", $content_type_single);
+  $stmt->execute();
+
 
   // Redirect back to manage_settings.php with a success message
   header('Location: manage_settings.php?message=Settings updated.');
@@ -129,6 +149,15 @@ $primary_color = $_POST['primary_color'];
 
       <label for="site_description">Site Description:</label>
       <textarea id="site_description" name="site_description"><?php echo htmlspecialchars($site_description); ?></textarea>
+
+      <label for="footer_text">Footer Text:</label>
+      <input type="text" id="footer_text" name="footer_text" value="<?php echo htmlspecialchars($footer_text); ?>">
+
+      <label for="content_type_plural">Content Type Plural:</label>
+      <input type="text" id="content_type_plural" name="content_type_plural" value="<?php echo htmlspecialchars($content_type_plural); ?>">
+
+      <label for="content_type_single">Content Type Single:</label>
+      <input type="text" id="content_type_single" name="content_type_single" value="<?php echo htmlspecialchars($content_type_single); ?>">
 
       <label for="contact_email">Contact Email:</label>
       <input type="email" id="contact_email" name="contact_email" value="<?php echo htmlspecialchars($contact_email); ?>">
