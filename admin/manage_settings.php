@@ -18,7 +18,6 @@ if ($result->num_rows > 0) {
   $user_rank_id = $row['rank_id'];
 }
 
-
 // Get current settings
 $stmt = $conn->prepare("SELECT name, value FROM settings");
 $stmt->execute();
@@ -83,44 +82,38 @@ if (isset($_POST['update_settings'])) {
     $stmt->bind_param("s", $logo_url);
     $stmt->execute();
   }
+    // Update footer_text, content_type_plural, and content_type_single in the database
+    $footer_text = $_POST['footer_text'];
+    $content_type_plural = $_POST['content_type_plural'];
+    $content_type_single = $_POST['content_type_single'];
+    
+    $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'footer_text'");
+    $stmt->bind_param("s", $footer_text);
+    $stmt->execute();
+    
+    $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'content_type_plural'");
+    $stmt->bind_param("s", $content_type_plural);
+    $stmt->execute();
+    
+    $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'content_type_single'");
+    $stmt->bind_param("s", $content_type_single);
+    $stmt->execute();
+    
+    // Update registration_enabled in the database
+    $registration_enabled = $_POST['registration_enabled'];
+    $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'registration_enabled'");
+    $stmt->bind_param("s", $registration_enabled);
+    $stmt->execute();
 
-  $primary_color = $_POST['primary_color'];
-  $secondary_color = $_POST['secondary_color'];
-  
-  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'primary_color'");
-  $stmt->bind_param("s", $primary_color);
-  $stmt->execute();
-  
-  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'secondary_color'");
-  $stmt->bind_param("s", $secondary_color);
-  $stmt->execute();
-  
-  // Update footer_text, content_type_plural, and content_type_single in the database
-  $footer_text = $_POST['footer_text'];
-  $content_type_plural = $_POST['content_type_plural'];
-  $content_type_single = $_POST['content_type_single'];
-  
-  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'footer_text'");
-  $stmt->bind_param("s", $footer_text);
-  $stmt->execute();
-  
-  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'content_type_plural'");
-  $stmt->bind_param("s", $content_type_plural);
-  $stmt->execute();
-  
-  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'content_type_single'");
-  $stmt->bind_param("s", $content_type_single);
-  $stmt->execute();
-  
-  // Update registration_enabled in the database
-  $registration_enabled = $_POST['registration_enabled'];
-  $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'registration_enabled'");
-  $stmt->bind_param("s", $registration_enabled);
-  $stmt->execute();
-  
-  // Redirect back to manage_settings.php with a success message
-  header('Location: manage_settings.php?message=Settings updated.');
-  exit();
+    // Update theme in the database
+    $theme = $_POST['theme'];
+    $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'theme'");
+    $stmt->bind_param("s", $theme);
+    $stmt->execute();
+    
+    // Redirect back to manage_settings.php with a success message
+    header('Location: manage_settings.php?message=Settings updated.');
+    exit();
   }
   
   ?>
@@ -135,67 +128,83 @@ if (isset($_POST['update_settings'])) {
   <body>
   <?php include 'admin_sidebar.php'; ?>
   <main>
-    <div class="content"><?php
-    // If the user doesn't have permission to access this page
-if (!check_permission($user_rank_id, 'can_manage_system_settings')) {
-  die("You don't have permission to access this page.");
-} ?>
+    <div class="content">
+      <?php
+      // If the user doesn't have permission to access this page
+      if (!check_permission($user_rank_id, 'can_manage_system_settings')) {
+        die("You don't have permission to access this page.");
+      }
+      ?>
       <h1>Manage Settings</h1>
       <form method="POST" enctype="multipart/form-data">
-  <fieldset>
-    <legend>General</legend>
-    <label for="site_title">Site Title:</label>
-    <input type="text" id="site_title" name="site_title" value="<?php echo htmlspecialchars($site_title); ?>">
+        <fieldset>
+          <legend>General</legend>
+          <label for="site_title">Site Title:</label>
+          <input type="text" id="site_title" name="site_title" value="<?php echo htmlspecialchars($site_title); ?>">
+  
+          <label for="site_description">Site Description:</label>
+          <textarea id="site_description" name="site_description"><?php echo htmlspecialchars($site_description); ?></textarea>
+        </fieldset>
+  
+        <fieldset>
+          <legend>Branding</legend>
+          <label for="logo_url">Logo:</label>
+          <img src="<?php echo htmlspecialchars($settings['logo_url']); ?>" alt="Current logo" id="current-logo" style="max-width: 200px; max-height: 200px; margin-top: 10px;"><br>
+          <input type="file" id="logo_url" name="logo_url" accept="image/*">
+        </fieldset>
 
-    <label for="site_description">Site Description:</label>
-    <textarea id="site_description" name="site_description"><?php echo htmlspecialchars($site_description); ?></textarea>
-  </fieldset>
-
-  <fieldset>
-    <legend>Branding</legend>
-    <label for="logo_url">Logo:</label>
-    <img src="<?php echo htmlspecialchars($settings['logo_url']); ?>" alt="Current logo" id="current-logo" style="max-width: 200px; max-height: 200px; margin-top: 10px;"><br>
-    <input type="file" id="logo_url" name="logo_url" accept="image/*">
-
-    <div class="color-group">
-      <label for="primary_color">Primary Color:</label>
-      <input type="color" id="primary_color" name="primary_color" value="<?php echo htmlspecialchars($settings['primary_color']); ?>">
-
-      <label for="secondary_color">Secondary Color:</label>
-      <input type="color" id="secondary_color" name="secondary_color" value="<?php echo htmlspecialchars($settings['secondary_color']); ?>">
-    </div>
-    </fieldset>
-  <fieldset>
-    <legend>Content Types</legend>
-    <label for="content_type_plural">Content Type Plural:</label>
-    <input type="text" id="content_type_plural" name="content_type_plural" value="<?php echo htmlspecialchars($content_type_plural); ?>">
-    <label for="content_type_single">Content Type Single:</label>
-<input type="text" id="content_type_single" name="content_type_single" value="<?php echo htmlspecialchars($content_type_single); ?>">
+        <fieldset>
+  <legend>Theme</legend>
+  <label for="theme">Choose Theme:</label>
+  <select id="theme" name="theme">
+    <?php
+      $stmt = $conn->prepare("SELECT id, title, filename FROM themes");
+      $stmt->execute();
+      $result = $stmt->get_result();
+      while ($row = $result->fetch_assoc()) {
+        $selected = $settings['theme'] === $row['filename'] ? 'selected' : '';
+        echo "<option value='{$row['filename']}' {$selected}>{$row['title']}</option>";
+      }
+    ?>
+  </select>
 </fieldset>
-  <fieldset>
-    <legend>Contact & Footer</legend>
-    <label for="contact_email">Contact Email:</label>
-    <input type="email" id="contact_email" name="contact_email" value="<?php echo htmlspecialchars($contact_email); ?>">
-    <label for="footer_text">Footer Text:</label>
-<input type="text" id="footer_text" name="footer_text" value="<?php echo htmlspecialchars($footer_text); ?>">
-</fieldset>
-  <fieldset>
-    <legend>Registration</legend>
-    <label for="registration_enabled">Registration Enabled:</label>
-    <select id="registration_enabled" name="registration_enabled">
-      <option value="1" <?php echo ($settings['registration_enabled'] == 1) ? 'selected' : ''; ?>>Enabled</option>
-      <option value="0" <?php echo ($settings['registration_enabled'] == 0) ? 'selected' : ''; ?>>Disabled</option>
-    </select>
-  </fieldset>
-<button type="submit" name="update_settings">Update Settings</button>
+  
+        <fieldset>
+          <legend>Content Types</legend>
+          <label for="content_type_plural">Content Type Plural:</label>
+          <input type="text" id="content_type_plural" name="content_type_plural" value="<?php echo htmlspecialchars($content_type_plural); ?>">
+  
+          <label for="content_type_single">Content Type Single:</label>
+          <input type="text" id="content_type_single" name="content_type_single" value="<?php echo htmlspecialchars($content_type_single); ?>">
+        </fieldset>
+  
+        <fieldset>
+        <legend>Contact & Footer</legend>
+        <label for="contact_email">Contact Email:</label>
+        <input type="email" id="contact_email" name="contact_email" value="<?php echo htmlspecialchars($contact_email); ?>">
 
-  <?php
-    if (isset($_GET['message'])) {
-      echo '<p class="success">' . htmlspecialchars($_GET['message']) . '</p>';
-    }
-  ?>
-</form>
-</div>
+        <label for="footer_text">Footer Text:</label>
+        <input type="text" id="footer_text" name="footer_text" value="<?php echo htmlspecialchars($footer_text); ?>">
+      </fieldset>
+
+      <fieldset>
+        <legend>Registration</legend>
+        <label for="registration_enabled">Registration Enabled:</label>
+        <select id="registration_enabled" name="registration_enabled">
+          <option value="1" <?php echo ($settings['registration_enabled'] == 1) ? 'selected' : ''; ?>>Enabled</option>
+          <option value="0" <?php echo ($settings['registration_enabled'] == 0) ? 'selected' : ''; ?>>Disabled</option>
+        </select>
+      </fieldset>
+
+      <button type="submit" name="update_settings">Update Settings</button>
+
+      <?php
+        if (isset($_GET['message'])) {
+          echo '<p class="success">' . htmlspecialchars($_GET['message']) . '</p>';
+        }
+      ?>
+    </form>
+  </div>
 </main>
 </body>
 </html>
