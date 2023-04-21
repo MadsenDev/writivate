@@ -24,14 +24,12 @@ if ($registration_enabled == '0') {
   <title>Wiki - Register</title>
   <link rel="icon" type="image/png" href="/public/images/favicon.png">
   <link rel="stylesheet" type="text/css" href="../public/styles/main.css">
-  <link rel="stylesheet" type="text/css" href="../public/styles/header.css">
+  <link rel="stylesheet" type="text/css" href="../public/themes/default.css">
 </head>
 <body>
-<?php include '../header.php'; ?>
 
 <main>
-    <?php include '../sidebar.php'; ?>
-  <div class="content">
+  <div class="auth-content">
     <h1>Register</h1>
     <form method="POST" action="register_process.php">
       <div class="form-group">
@@ -48,9 +46,9 @@ if ($registration_enabled == '0') {
       </div>
       <button type="submit" class="btn btn-primary">Register</button>
     </form>
+    <p>Already have an account? <a href="login.php">Login</a></p>
+    <p>Back to <a href="../index.php">Home</a></p>
   </div>
 </main>
-
-<?php include '../footer.php'; ?>
 </body>
 </html>

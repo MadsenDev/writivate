@@ -27,7 +27,7 @@ $result = $stmt->get_result();
 
 <main>
     <div class="content">
-        <h1>Manage Languages <a href="add_language.php">Add Language</a></h1>
+        <h1>Manage Languages <a href="add_language.php">Add New</a></h1>
 
         <table>
             <thead>

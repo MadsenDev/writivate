@@ -17,11 +17,12 @@ if (isset($_POST['add_rank'])) {
     $can_edit_translations = isset($_POST['can_edit_translations']) ? 1 : 0;
     $can_manage_language = isset($_POST['can_manage_language']) ? 1 : 0;
     $can_manage_suggestions = isset($_POST['can_manage_suggestions']) ? 1 : 0;
+    $can_change_theme = isset($_POST['can_change_theme']) ? 1 : 0;
+    $can_add_theme = isset($_POST['can_add_theme']) ? 1 : 0;
+    $can_delete_theme = isset($_POST['can_delete_theme']) ? 1 : 0;
 
-    $stmt = $conn->prepare("INSERT INTO ranks (title, can_create_guide, can_edit_guide, can_delete_guide, can_manage_categories, can_manage_users, can_manage_ranks, can_manage_views, can_manage_system_settings, can_add_translations, can_delete_translations, can_edit_translations, can_manage_language, can_manage_suggestions) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("siiiiiiiiiiiii", $title, $can_create_guide, $can_edit_guide, $can_delete_guide, $can_manage_categories, $can_manage_users, $can_manage_ranks, $can_manage_views, $can_manage_system_settings, $can_add_translations, $can_delete_translations, $can_edit_translations, $can_manage_language, $can_manage_suggestions);
-    $stmt->execute();
-
+    $stmt = $conn->prepare("INSERT INTO ranks (title, can_create_guide, can_edit_guide, can_delete_guide, can_manage_categories, can_manage_users, can_manage_ranks, can_manage_views, can_manage_system_settings, can_add_translations, can_delete_translations, can_edit_translations, can_manage_language, can_manage_suggestions, can_change_theme, can_add_theme, can_delete_theme) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("siiiiiiiiiiiiiii", $title, $can_create_guide, $can_edit_guide, $can_delete_guide, $can_manage_categories, $can_manage_users, $can_manage_ranks, $can_manage_views, $can_manage_system_settings, $can_add_translations, $can_delete_translations, $can_edit_translations, $can_manage_language, $can_manage_suggestions, $can_change_theme, $can_add_theme, $can_delete_theme);    $stmt->execute();
     header('Location: manage_ranks.php');
 }
 ?>
@@ -58,7 +59,10 @@ if (isset($_POST['add_rank'])) {
                             "can_delete_translations" => "Can Delete Translations",
                             "can_edit_translations" => "Can Edit Translations",
                             "can_manage_language" => "Can Manage Language",
-                            "can_manage_suggestions" => "Can Manage Suggestions"
+                            "can_manage_suggestions" => "Can Manage Suggestions",
+                            "can_change_theme" => "Can Change Theme",
+                            "can_add_theme" => "Can Add Theme",
+                            "can_delete_theme" => "Can Delete Theme"
                         ];
 
                         foreach ($permissions as $permission_key => $permission_label) {

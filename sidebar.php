@@ -1,16 +1,17 @@
 <?php
 include 'config.php';
 
-// Fetch content_type_plural and content_type_single from the 'settings' table
-$stmt = $conn->prepare("SELECT name, value FROM settings WHERE name = 'content_type_plural' OR name = 'content_type_single'");
+// Fetch content_type_plural, content_type_single, and show_views from the 'settings' table
+$stmt = $conn->prepare("SELECT name, value FROM settings WHERE name IN ('content_type_plural', 'content_type_single', 'show_views')");
 $stmt->execute();
 $result = $stmt->get_result();
-$content_types = [];
+$settings = [];
 while ($row = $result->fetch_assoc()) {
-  $content_types[$row['name']] = $row['value'];
+  $settings[$row['name']] = $row['value'];
 }
-$content_type_plural = $content_types['content_type_plural'];
-$content_type_single = $content_types['content_type_single'];
+$content_type_plural = $settings['content_type_plural'];
+$content_type_single = $settings['content_type_single'];
+$show_views = $settings['show_views'];
 
 // Fetch the top 5 most viewed content
 $stmt = $conn->prepare("SELECT guides.id, guides.title, COUNT(guide_views.guide_id) AS view_count
@@ -29,7 +30,11 @@ $most_viewed_content = $stmt->get_result();
   <ul>
     <?php while ($content = $most_viewed_content->fetch_assoc()): ?>
       <li>
-        <a href="/guide.php?id=<?= $content['id'] ?>"><?= $content['title'] ?> (<?= $content['view_count'] ?> views)</a>
+        <a href="/guide.php?id=<?= $content['id'] ?>"><?= $content['title'] ?>
+        <?php if ($show_views == '1'): ?>
+          (<?= $content['view_count'] ?> views)
+        <?php endif; ?>
+        </a>
       </li>
     <?php endwhile; ?>
   </ul>

@@ -35,6 +35,8 @@ $footer_text = $settings['footer_text'];
 $content_type_plural = $settings['content_type_plural'];
 $content_type_single = $settings['content_type_single'];
 $registration_enabled = $settings['registration_enabled'];
+$show_views = $settings['show_views'];
+$enable_suggestions = $settings['enable_suggestions'];
 
 // Handle form submissions
 if (isset($_POST['update_settings'])) {
@@ -110,6 +112,18 @@ if (isset($_POST['update_settings'])) {
     $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'theme'");
     $stmt->bind_param("s", $theme);
     $stmt->execute();
+
+    // Update show_views in the database
+    $show_views = $_POST['show_views'];
+    $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'show_views'");
+    $stmt->bind_param("s", $show_views);
+    $stmt->execute();
+    
+    // Update enable_suggestions in the database
+    $enable_suggestions = $_POST['enable_suggestions'];
+    $stmt = $conn->prepare("UPDATE settings SET value = ? WHERE name = 'enable_suggestions'");
+    $stmt->bind_param("s", $enable_suggestions);
+    $stmt->execute();
     
     // Redirect back to manage_settings.php with a success message
     header('Location: manage_settings.php?message=Settings updated.');
@@ -154,20 +168,21 @@ if (isset($_POST['update_settings'])) {
         </fieldset>
 
         <fieldset>
-  <legend>Theme</legend>
-  <label for="theme">Choose Theme:</label>
-  <select id="theme" name="theme">
-    <?php
-      $stmt = $conn->prepare("SELECT id, title, filename FROM themes");
-      $stmt->execute();
-      $result = $stmt->get_result();
-      while ($row = $result->fetch_assoc()) {
-        $selected = $settings['theme'] === $row['filename'] ? 'selected' : '';
-        echo "<option value='{$row['filename']}' {$selected}>{$row['title']}</option>";
-      }
-    ?>
-  </select>
-</fieldset>
+        <legend>Theme</legend>
+        <label for="theme">Choose Theme:</label>
+        <select id="theme" name="theme">
+          <?php
+            $stmt = $conn->prepare("SELECT id, title, filename FROM themes");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            while ($row = $result->fetch_assoc()) {
+              $selected = $settings['theme'] === $row['filename'] ? 'selected' : '';
+              echo "<option value='{$row['filename']}' {$selected}>{$row['title']}</option>";
+            }
+          ?>
+        </select>
+        <a href="manage_themes.php">Manage Themes</a>
+      </fieldset>
   
         <fieldset>
           <legend>Content Types</legend>
@@ -188,13 +203,25 @@ if (isset($_POST['update_settings'])) {
       </fieldset>
 
       <fieldset>
-        <legend>Registration</legend>
-        <label for="registration_enabled">Registration Enabled:</label>
+      <legend>Additional Features</legend>
+      <label for="show_views">Show Views:</label>
+      <select id="show_views" name="show_views">
+        <option value="1" <?php echo ($settings['show_views'] == 1) ? 'selected' : ''; ?>>Enabled</option>
+        <option value="0" <?php echo ($settings['show_views'] == 0) ? 'selected' : ''; ?>>Disabled</option>
+      </select>
+
+      <label for="enable_suggestions">Enable Suggestions:</label>
+      <select id="enable_suggestions" name="enable_suggestions">
+        <option value="1" <?php echo ($settings['enable_suggestions'] == 1) ? 'selected' : ''; ?>>Enabled</option>
+        <option value="0" <?php echo ($settings['enable_suggestions'] == 0) ? 'selected' : ''; ?>>Disabled</option>
+      </select>
+
+      <label for="registration_enabled">Registration Enabled:</label>
         <select id="registration_enabled" name="registration_enabled">
           <option value="1" <?php echo ($settings['registration_enabled'] == 1) ? 'selected' : ''; ?>>Enabled</option>
           <option value="0" <?php echo ($settings['registration_enabled'] == 0) ? 'selected' : ''; ?>>Disabled</option>
         </select>
-      </fieldset>
+    </fieldset>
 
       <button type="submit" name="update_settings">Update Settings</button>
 

@@ -1,5 +1,5 @@
 <?php
-include '/config.php';
+include 'config.php';
 // Fetch theme from the database
 $stmt = $conn->prepare("SELECT value FROM settings WHERE name = 'theme'");
 $stmt->execute();
@@ -13,6 +13,6 @@ if ($result->num_rows > 0) {
 ?>
 
 <title><?php echo $site_name; ?></title>
-<link rel="icon" type="image/png" href="/public/images/favicon.png">
-<link rel="stylesheet" type="text/css" href="/public/styles/main.css">
-<link rel="stylesheet" type="text/css" href="/public/themes/<?php echo htmlspecialchars($theme); ?>.css">
+<link rel="icon" type="image/png" href="public/images/favicon.png">
+<link rel="stylesheet" type="text/css" href="public/styles/main.css">
+<link rel="stylesheet" type="text/css" href="public/themes/<?php echo htmlspecialchars($theme); ?>">

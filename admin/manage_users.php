@@ -9,7 +9,7 @@
 	<?php include 'admin_sidebar.php'; ?>
 	<main>
 		<div class="content">
-			<h1>Manage Users <a href="add_user.php">Add User</a></h1>
+			<h1>Manage Users <a href="add_user.php">Add New</a></h1>
 			<table>
 				<thead>
 					<tr>

@@ -81,6 +81,43 @@ aside a:hover {
   margin-bottom: 15px;
 }
 
+.auth-content {
+  background-color: #ffffff;
+  width: 300px;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 0 auto; /* Centers the element horizontally */
+  position: absolute; /* Positions the element relative to the nearest positioned ancestor */
+  top: 50%; /* Positions the element at 50% from the top of the page */
+  left: 50%; /* Positions the element at 50% from the left of the page */
+  transform: translate(-50%, -50%); /* Translates the element to center it both horizontally and vertically */
+  text-align: right;
+}
+
+.auth-content img {
+  max-width: 100%;
+}
+
+.auth-content h1 {
+  text-align: center;
+}
+
+.auth-content p {
+  text-align: left;
+}
+
+.auth-content button {
+  text-align: right;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.auth-content label {
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
 .recently-viewed-guides {
   padding: 20px;
   border-radius: 5px;

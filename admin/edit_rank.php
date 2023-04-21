@@ -31,9 +31,13 @@ if (isset($_POST['edit_rank'])) {
     $can_manage_language = isset($_POST['can_manage_language']) ? 1 : 0;
     $can_manage_suggestions = isset($_POST['can_manage_suggestions']) ? 1 : 0;
     $can_manage_system_settings = isset($_POST['can_manage_system_settings']) ? 1 : 0;
+    $can_change_theme = isset($_POST['can_change_theme']) ? 1 : 0;
+    $can_add_theme = isset($_POST['can_add_theme']) ? 1 : 0;
+    $can_delete_theme = isset($_POST['can_delete_theme']) ? 1 : 0;
 
-    $stmt = $conn->prepare("UPDATE ranks SET title = ?, can_create_guide = ?, can_edit_guide = ?, can_delete_guide = ?, can_manage_categories = ?, can_manage_users = ?, can_add_translations = ?, can_delete_translations = ?, can_edit_translations = ?, can_manage_language = ?, can_manage_suggestions = ?, can_manage_system_settings = ? WHERE id = ?");
-    $stmt->bind_param("siiiiiiiiiiii", $title, $can_create_guide, $can_edit_guide, $can_delete_guide, $can_manage_categories, $can_manage_users, $can_add_translations, $can_delete_translations, $can_edit_translations, $can_manage_language, $can_manage_suggestions, $can_manage_system_settings, $rank_id);
+    // Update the prepared statement to include the new permissions
+    $stmt = $conn->prepare("UPDATE ranks SET title = ?, can_create_guide = ?, can_edit_guide = ?, can_delete_guide = ?, can_manage_categories = ?, can_manage_users = ?, can_add_translations = ?, can_delete_translations = ?, can_edit_translations = ?, can_manage_language = ?, can_manage_suggestions = ?, can_manage_system_settings = ?, can_change_theme = ?, can_add_theme = ?, can_delete_theme = ? WHERE id = ?");
+    $stmt->bind_param("siiiiiiiiiiiiii", $title, $can_create_guide, $can_edit_guide, $can_delete_guide, $can_manage_categories, $can_manage_users, $can_add_translations, $can_delete_translations, $can_edit_translations, $can_manage_language, $can_manage_suggestions, $can_manage_system_settings, $can_change_theme, $can_add_theme, $can_delete_theme, $rank_id);
     $stmt->execute();
 
     header('Location: manage_ranks.php');
@@ -72,7 +76,10 @@ if (isset($_POST['edit_rank'])) {
                             "can_edit_translations" => "Can Edit Translations",
                             "can_manage_language" => "Can Manage Language",
                             "can_manage_suggestions" => "Can Manage Suggestions",
-                            "can_manage_system_settings" => "Can Manage System Settings"
+                            "can_manage_system_settings" => "Can Manage System Settings",
+                            "can_change_theme" => "Can Change Theme",
+                            "can_add_theme" => "Can Add Theme",
+                            "can_delete_theme" => "Can Delete Theme"
                         ];
 
                         foreach ($permissions as $permission_key => $permission_label) {

@@ -20,7 +20,7 @@ $ranks = $result->fetch_all(MYSQLI_ASSOC);
     <?php include 'admin_sidebar.php'; ?>
     <main>
         <div class="content">
-            <h1>Manage Ranks</h1>
+            <h1>Manage Ranks <a href="add_rank.php" class="add-new">Add New</a></h1>
             <table>
                 <tr>
                     <th>ID</th>
@@ -48,6 +48,9 @@ $ranks = $result->fetch_all(MYSQLI_ASSOC);
                             if ($rank['can_edit_translations']) $permissions[] = 'Edit Translations';
                             if ($rank['can_manage_language']) $permissions[] = 'Manage Language';
                             if ($rank['can_manage_suggestions']) $permissions[] = 'Manage Suggestions';
+                            if ($rank['can_change_theme']) $permissions[] = 'Change Theme';
+                            if ($rank['can_add_theme']) $permissions[] = 'Add Theme';
+                            if ($rank['can_delete_theme']) $permissions[] = 'Delete Theme';
 
                             echo implode(', ', $permissions);
                             ?>
@@ -59,7 +62,6 @@ $ranks = $result->fetch_all(MYSQLI_ASSOC);
                     </tr>
                 <?php endforeach; ?>
             </table>
-            <a href="add_rank.php" class="add-new">Add New Rank</a>
         </div>
     </main>
 </body>

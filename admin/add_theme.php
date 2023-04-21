@@ -1,11 +1,14 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 include '../config.php';
 
 if (isset($_POST['submit'])) {
   // Get the theme properties from the form
   $title = $_POST['title'];
-  $filename = $_POST['filename'];
+  $filename = $_POST['filename'] . ".css";
 
   // Prepare the CSS content with the properties
   $css = "
@@ -109,6 +112,8 @@ nav a {
     color: {$_POST['footer_text_color']};
     }
     ";
+
+    echo '<pre>' . htmlspecialchars($css) . '</pre>';
     
     // Save the CSS content to the file in /public/themes/
     file_put_contents('../public/themes/' . $filename, $css);
@@ -135,7 +140,7 @@ nav a {
       <?php include 'admin_sidebar.php'; ?>
       <div class="content">
         <h1>Add Theme</h1>
-        <form action="" method="post">
+        <form method="post">
           <div class="form-group">
             <label for="title">Title</label>
             <input type="text" name="title" id="title" class="form-control" required>
@@ -146,31 +151,40 @@ nav a {
   </div>
 
   <?php
-$query = "SELECT id, label, type, name FROM theme_options";
-$result = $conn->query($query);
+// Fetch unique group names
+$groupQuery = "SELECT DISTINCT group_name FROM theme_options";
+$groupResult = $conn->query($groupQuery);
 
-if ($result->num_rows > 0) {
+if ($groupResult->num_rows > 0) {
   echo '<form action="add_theme.php" method="post">';
-  
-  while ($row = $result->fetch_assoc()) {
-    echo '<div class="row">';
-    echo '  <div class="col-md-6">';
-    echo '    <div class="form-group">';
-    echo '      <label for="' . $row['name'] . '">' . $row['label'] . '</label>';
-    echo '      <input type="' . $row['type'] . '" name="' . $row['name'] . '" id="' . $row['name'] . '" class="form-control" required>';
-    echo '    </div>';
-    echo '  </div>';
+  while ($group = $groupResult->fetch_assoc()) {
+    echo '<div class="option-group">';
+    echo '<h3>' . $group['group_name'] . '</h3>';
+    
+    $query = "SELECT id, label, type, name FROM theme_options WHERE group_name = '" . $group['group_name'] . "'";
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        echo '<div class="row">';
+        echo '  <div class="col-md-6">';
+        echo '    <div class="form-group">';
+        echo '      <label for="' . $row['name'] . '">' . $row['label'] . '</label>';
+        echo '      <input type="' . $row['type'] . '" name="' . $row['name'] . '" id="' . $row['name'] . '" class="form-control" required>';
+        echo '    </div>';
+        echo '  </div>';
+        echo '</div>';
+      }
+    }
+    
     echo '</div>';
   }
-  
   echo '  <div class="form-group">';
-  echo '    <button type="submit" class="btn btn-primary">Save Theme</button>';
+  echo '    <button type="submit" name="submit" class="btn btn-primary">Save Theme</button>';
   echo '  </div>';
   echo '</form>';
 }
 ?>
-
-  <button type="submit" name="submit" class="btn btn-primary">Add Theme</button>
 </form>
 </div>
 </body>
