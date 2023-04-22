@@ -1,9 +1,9 @@
 <?php
 // Database configuration
-$host = 'localhost';
-$db_user = 'madsensd_madsen';
-$db_password = 'data2023';
-$db_name = 'madsensd_tech_support_wiki';
+$host = getenv('DB_HOST');
+$db_user = getenv('DB_USER');
+$db_password = getenv('DB_PASSWORD');
+$db_name = getenv('DB_NAME');
 
 // Create a connection
 $conn = new mysqli($host, $db_user, $db_password, $db_name);

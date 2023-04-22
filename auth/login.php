@@ -23,7 +23,7 @@
     </form>
     <p>Don't have an account? <a href="register.php">Register</a></p>
     <p>Forgot your password? <a href="reset_password.php">Reset Password</a></p>
-    <p>Forgot your username? <a href="reset_username.php">Reset Username</a></p>
+    <p>Forgot your username? <a href="fetch_username.php">Get Reminder</a></p>
     <p>Back to <a href="../index.php">Home</a></p>
   </div>
 </main>

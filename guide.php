@@ -31,19 +31,6 @@ if (isset($_GET['id'])) {
     });
 }
 
-$user_rank_number = 0;
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $stmt = $conn->prepare("SELECT rank_number FROM users INNER JOIN ranks ON users.rank_id = ranks.id WHERE users.id = ?");
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $user_rank_number = $row['rank_number'];
-    }
-}
-
 if (!isset($_GET['id'])) {
     die("No guide ID provided.");
 }
@@ -80,11 +67,14 @@ if ($result->num_rows === 0) {
 
 $row = $result->fetch_assoc();
 
+$creator = $row['creator_username'];
+$category = get_full_category_path($conn, $row['category_id']);
+
 if ($language_code && $row['translated_title'] && $row['translated_content']) {
-    $header = $row['translated_title'];
+    $title = $row['translated_title'];
     $content = $row['translated_content'];
 } else {
-    $header = $row['title'];
+    $title = $row['title'];
     $content = $row['content'];
 }
 
@@ -99,8 +89,8 @@ $tags = $tag_stmt->get_result();
 <main>
     <?php include 'sidebar.php'; ?>
     <div class="content">
-    <div class="header-container">
-    <h1><?php echo $header; ?></h1>
+<div class="header-container">
+<h1><?php echo $title; ?></h1>
     <div class="language-selection hide-on-print">
         <label for="language-select">Language:</label>
         <select id="language-select">
@@ -112,8 +102,8 @@ $tags = $tag_stmt->get_result();
     </div>
 </div>
 
-<p style='margin-top: -10px; font-size: 14px; font-style: italic;'>Created by: <?php echo $row['creator_username']; ?></p>
-<p style='margin-top: -10px; font-size: 14px; font-style: italic;'>Category: <?php echo get_full_category_path($conn, $row['category_id']); ?></p>
+<p style='margin-top: -10px; font-size: 14px; font-style: italic;'>Created by: <?php echo $creator; ?></p>
+<p style='margin-top: -10px; font-size: 14px; font-style: italic;'>Category: <?php echo $category; ?></p>
 <div><?php echo $html; ?></div>
 <div class="guide-tags hide-on-print">
   <div class="tags-container">
@@ -142,7 +132,7 @@ $tags = $tag_stmt->get_result();
         <li>
             <?php
             $created_date = date("F j, Y, g:i a", strtotime($row['created_at']));
-            echo "Created on {$created_date} by {$row['creator_username']}";
+            echo "Created on {$created_date} by {$creator}";
             ?>
         </li>
     </ul>

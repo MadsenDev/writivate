@@ -177,5 +177,34 @@ function generateLanguageOptions($languagesArray, $selected_language = null) {
 
   return $options;
 }
+
+function validate_password_reset_token($conn, $token) {
+  $stmt = $conn->prepare("SELECT * FROM password_reset_tokens WHERE token = ?");
+  $stmt->bind_param("s", $token);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  if ($result->num_rows > 0) {
+      $token_data = $result->fetch_assoc();
+      if (strtotime($token_data['expires_at']) >= time()) {
+          return true;
+      }
+  }
+  return false;
+}
+
+function get_user_id_by_token($conn, $token) {
+  $stmt = $conn->prepare("SELECT user_id FROM password_reset_tokens WHERE token = ?");
+  $stmt->bind_param("s", $token);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $token_data = $result->fetch_assoc();
+  return $token_data['user_id'];
+}
+
+function remove_password_reset_token($conn, $token) {
+  $stmt = $conn->prepare("DELETE FROM password_reset_tokens WHERE token = ?");
+  $stmt->bind_param("s", $token);
+  $stmt->execute();
+}
   
 ?>
