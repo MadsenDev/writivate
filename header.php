@@ -69,8 +69,8 @@ if ($result->num_rows > 0) {
       <ul>
         <?php if (isset($_SESSION['user_id'])): ?>
           <li><a href="/admin/index.php">Dashboard</a></li>
-          <li><a href="/profile.php">Profile</a></li>
-          <li><a href="/auth/logout.php">Log Out (<?php echo htmlspecialchars($_SESSION['username']); ?>)</a></li>
+          <li><a href="/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
+          <li><a href="/auth/logout.php">Log Out</a></li>
         <?php else: ?>
           <li><a href="/auth/login.php">Login</a></li>
           <?php if ($registration_enabled == 1): ?>
