@@ -58,12 +58,11 @@ foreach ($tags as $tag_name) {
   }
   
   // Insert the guide-tag association
-  $stmt = $conn->prepare("INSERT INTO guide_tags (guide_id, tag_id) VALUES (?, ?)");
-  $stmt->bind_param("ii", $guide_id, $tag_id);
-  $stmt->execute();
-  if (!$stmt->execute()) {
-    echo "Error: (" . $stmt->errno . ") " . $stmt->error . "<br>";
-  }
+$stmt = $conn->prepare("INSERT INTO guide_tags (guide_id, tag_id) VALUES (?, ?)");
+$stmt->bind_param("ii", $guide_id, $tag_id);
+if (!$stmt->execute()) {
+  echo "Error: (" . $stmt->errno . ") " . $stmt->error . "<br>";
+}
   
 }
 
