@@ -160,8 +160,15 @@ function get_recently_viewed_guides($conn, $user_id, $limit = 5) {
 // functions.php
 function search_guides($conn, $query) {
   $search_query = "%" . $query . "%";
-  $stmt = $conn->prepare("SELECT * FROM guides WHERE title LIKE ? OR content LIKE ?");
-  $stmt->bind_param("ss", $search_query, $search_query);
+  
+  $stmt = $conn->prepare(
+    "SELECT g.* FROM guides g
+    LEFT JOIN guide_tags gt ON g.id = gt.guide_id
+    LEFT JOIN tags t ON gt.tag_id = t.id
+    WHERE g.title LIKE ? OR g.content LIKE ? OR t.name LIKE ? GROUP BY g.id"
+  );
+  
+  $stmt->bind_param("sss", $search_query, $search_query, $search_query);
   $stmt->execute();
   $result = $stmt->get_result();
   return $result->fetch_all(MYSQLI_ASSOC);
