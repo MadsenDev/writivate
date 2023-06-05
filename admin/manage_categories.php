@@ -88,16 +88,20 @@ $category_tree = build_category_tree($categoriesArray);
         <h1>Manage Categories</h1>
 
         <h2>Add Category</h2>
-        <form method="POST" action="add_category.php">
-        <label for="category_name">Category Name:</label>
-        <input type="text" id="category_name" name="category_name" required>
-        <label for="parent_id">
-        <select id="parent_id" name="parent_id">
-            <option value="">Select parent category (optional)</option>
-            <?php echo $options; ?>
-        </select>
-        <input type="submit" name="add_category" value="Add Category">
-    </form>
+<form method="POST" action="add_category.php">
+    <label for="category_name">Category Name:</label>
+    <input type="text" id="category_name" name="category_name" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="parent_id">Parent Category:</label>
+    <select id="parent_id" name="parent_id">
+        <option value="">Select parent category (optional)</option>
+        <?php echo $options; ?>
+    </select>
+    <input type="submit" name="add_category" value="Add Category">
+</form>
 
         <h2>Edit Categories</h2>
         <table>
@@ -116,7 +120,7 @@ function display_category_row($category, $level = 0) {
     echo "<td>{$category['id']}</td>";
     echo "<td>{$indent}{$category['name']}</td>";
     echo "<td>{$category['parent_name']}</td>";
-    echo "<td><a href=\"edit_category.php?id={$category['id']}\">Edit</a> | <a href=\"manage_categories.php?delete_category=1&category_id={$category['id']}\" onclick=\"return confirm('Are you sure you want to delete this category?')\">Delete</a></td>";
+    echo "<td><a href=\"manage_guides.php?id={$category['id']}\">View Posts</a> | <a href=\"edit_category.php?id={$category['id']}\">Edit</a> | <a href=\"manage_categories.php?delete_category=1&category_id={$category['id']}\" onclick=\"return confirm('Are you sure you want to delete this category?')\">Delete</a></td>";
     echo "</tr>";
 
     if (isset($category['children'])) {

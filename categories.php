@@ -28,6 +28,17 @@ function fetch_subcategory_guides($conn, $category_id) {
 
     return $guides;
 }
+
+// Fetch content_type_plural, content_type_single, and show_views from the 'settings' table
+$stmt = $conn->prepare("SELECT name, value FROM settings WHERE name IN ('content_type_plural', 'content_type_single', 'show_views')");
+$stmt->execute();
+$result = $stmt->get_result();
+$settings = [];
+while ($row = $result->fetch_assoc()) {
+  $settings[$row['name']] = $row['value'];
+}
+$content_type_plural = $settings['content_type_plural'];
+$content_type_single = $settings['content_type_single'];
 ?>
 
 <!DOCTYPE html>
@@ -58,6 +69,11 @@ function fetch_subcategory_guides($conn, $category_id) {
                 // Display category name
                 echo "<h1>Category: {$category['name']}</h1>";
 
+                // Display category description
+                if(!empty($category['description'])) {
+                    echo "<p>{$category['description']}</p>";
+                }
+
                 // Fetch guides within the category and its subcategories
 $stmt = $conn->prepare("SELECT * FROM guides WHERE category_id = ?");
 $stmt->bind_param("i", $category_id);
@@ -71,12 +87,14 @@ while ($guide = $guides_result->fetch_assoc()) {
 
 $guides = array_merge($guides, fetch_subcategory_guides($conn, $category_id));
 
+echo "<h1>{$content_type_plural}</h1>";
+
 if (count($guides) > 0) {
     echo "<ul>";
     foreach ($guides as $guide) {
         echo "<li><a href=\"/guide.php?id={$guide['id']}\">{$guide['title']}</a>";
 if (!empty($guide['category_name'])) {
-    echo " ({$guide['category_name']})";
+    echo " (<em><a href='categories.php?id={$guide['category_id']}' style='color: darkgray;'>{$guide['category_name']}</a></em>)";
 }
 echo "</li>";
     }

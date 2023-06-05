@@ -81,6 +81,30 @@ aside a:hover {
   margin-bottom: 15px;
 }
 
+.section {
+  border: 1px solid #ccc; /* border color */
+  background-color: #f9f9f9; /* background color */
+  padding: 20px; /* inner spacing */
+  margin-bottom: 20px; /* space between sections */
+}
+
+.categories-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.category {
+  width: 48%;
+}
+
+.category h2 {
+  /* Style category titles here */
+}
+
+.category a {
+  /* Style category links here */
+}
+
 .auth-content {
   background-color: #ffffff;
   width: 300px;

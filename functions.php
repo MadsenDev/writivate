@@ -69,18 +69,46 @@ function get_category_id_by_name($conn, $name) {
   return $row ? $row['id'] : null;
 }
 
-function get_newest_guides_by_category($conn, $category_id, $limit) {
+function get_newest_guides_by_category($conn, $category_id, $limit = null) {
   $category_ids = get_all_child_category_ids($conn, $category_id);
   array_push($category_ids, $category_id);
   $placeholders = implode(',', array_fill(0, count($category_ids), '?'));
 
-  // Merge the $category_ids array with the $limit value
-  $params = array_merge($category_ids, [$limit]);
-
-  $stmt = $conn->prepare("SELECT * FROM guides WHERE category_id IN ($placeholders) ORDER BY created_at DESC LIMIT ?");
+  // Prepare base query string
+  $query = "SELECT * FROM guides WHERE category_id IN ($placeholders) ORDER BY created_at DESC";
   
-  // Use the $params array with the unpacking operator
-  $types = str_repeat("i", count($params));
+  // If a limit was provided, add it to the query string and the parameters array
+  if ($limit !== null) {
+      $query .= " LIMIT ?";
+      $params = array_merge($category_ids, [$limit]);
+      $types = str_repeat("i", count($params));
+  } else {
+      $params = $category_ids;
+      $types = str_repeat("i", count($params));
+  }
+  
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param($types, ...$params);
+  
+  $stmt->execute();
+  return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+function get_newest_guides_by_single_category($conn, $category_id, $limit = null) {
+  // Prepare base query string
+  $query = "SELECT * FROM guides WHERE category_id = ? ORDER BY created_at DESC";
+  
+  // If a limit was provided, add it to the query string and the parameters array
+  if ($limit !== null) {
+      $query .= " LIMIT ?";
+      $params = array($category_id, $limit);
+      $types = "ii";
+  } else {
+      $params = array($category_id);
+      $types = "i";
+  }
+  
+  $stmt = $conn->prepare($query);
   $stmt->bind_param($types, ...$params);
   
   $stmt->execute();

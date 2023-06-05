@@ -68,6 +68,7 @@ if ($result->num_rows === 0) {
 $row = $result->fetch_assoc();
 
 $creator = $row['creator_username'];
+$timestamp = $row['created_at'];
 $category = get_full_category_path($conn, $row['category_id']);
 
 if ($language_code && $row['translated_title'] && $row['translated_content']) {
@@ -120,7 +121,6 @@ $tags = $tag_stmt->get_result();
         $stmt->bind_param("i", $guide_id);
         $stmt->execute();
         $updates_result = $stmt->get_result();
-
         while ($update_row = $updates_result->fetch_assoc()) : ?>
             <li>
                 <?php
@@ -131,7 +131,7 @@ $tags = $tag_stmt->get_result();
         <?php endwhile; ?>
         <li>
             <?php
-            $created_date = date("F j, Y, g:i a", strtotime($row['created_at']));
+            $created_date = date("F j, Y, g:i a", strtotime($timestamp));
             echo "Created on {$created_date} by {$creator}";
             ?>
         </li>

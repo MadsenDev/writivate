@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include '../config.php';
 include '../functions.php';
 
@@ -20,11 +24,22 @@ if (!$category) {
 
 if (isset($_POST['edit_category'])) {
     $category_name = $_POST['category_name'];
+    $category_description = $_POST['category_description'];
     $parent_id = $_POST['parent_id'] ?? null;
 
-    $stmt = $conn->prepare("UPDATE categories SET name = ?, parent_id = ? WHERE id = ?");
-    $stmt->bind_param("sii", $category_name, $parent_id, $category_id);
+    if ($parent_id === "") {
+        $stmt = $conn->prepare("UPDATE categories SET name = ?, description = ? WHERE id = ?");
+        $stmt->bind_param("ssi", $category_name, $category_description, $category_id);
+    } else {
+        $stmt = $conn->prepare("UPDATE categories SET name = ?, description = ?, parent_id = ? WHERE id = ?");
+        $stmt->bind_param("ssii", $category_name, $category_description, $parent_id, $category_id);
+    }
+    
     $stmt->execute();
+    if ($stmt->error) {
+        echo "Error: {$stmt->error}";
+    }
+    echo "Affected rows: " . $stmt->affected_rows;
 
     header('Location: manage_categories.php');
 }
@@ -53,6 +68,9 @@ $options = generateCategoryOptions($categoriesArray, null, "", $category['parent
             <form method="POST">
                 <label for="category_name">Category Name:</label>
                 <input type="text" id="category_name" name="category_name" value="<?php echo $category['name']; ?>" required>
+
+                <label for="category_description">Description:</label>
+                <textarea id="category_description" name="category_description" required><?php echo $category['description']; ?></textarea>
 
                 <label for="parent_id">Parent Category:</label>
                 <select id="parent_id" name="parent_id">

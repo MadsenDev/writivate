@@ -15,8 +15,18 @@
 <main>
   <?php include 'sidebar.php'; ?>
   <div class="content">
-    <div style="display: flex; justify-content: space-between;">
-      <div style="width: 48%;">
+    <div class="updates section">
+    <h2>Updates</h2>
+        <?php
+          $updates_category_id = get_category_id_by_name($conn, "Updates");
+          $newest_updates_guides = get_newest_guides_by_category($conn, $updates_category_id, 5);
+          foreach ($newest_updates_guides as $guide) {
+            echo "<p><a href=\"guide.php?id={$guide['id']}\">{$guide['title']}</a> <em>({$guide['created_at']})</em></p>";
+          }
+        ?>
+    </div>
+    <div class="categories-wrapper">
+      <div class="category">
         <h2>Computers</h2>
         <?php
           $computers_category_id = get_category_id_by_name($conn, "Computers");
@@ -26,7 +36,7 @@
           }
         ?>
       </div>
-      <div style="width: 48%;">
+      <div class="category">
         <h2>Mobile Phones</h2>
         <?php
           $mobile_phones_category_id = get_category_id_by_name($conn, "Mobile Phones");
@@ -37,7 +47,7 @@
         ?>
       </div>
     </div>
-  </div>
+</div>
 </main>
 
 <?php include 'footer.php'; ?>
