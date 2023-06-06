@@ -2,10 +2,10 @@
 session_start();
 include '../config.php';
 
-// Fetch all guide views with associated guide and user information
-$stmt = $conn->prepare("SELECT guide_views.id AS view_id, guides.id AS guide_id, guides.title AS guide_title, users.id AS user_id, users.username, guide_views.view_time, guide_views.duration FROM guide_views INNER JOIN guides ON guide_views.guide_id = guides.id LEFT JOIN users ON guide_views.user_id = users.id ORDER BY guides.id ASC");
+// Fetch all guides with associated view information
+$stmt = $conn->prepare("SELECT guides.id AS guide_id, guides.title AS guide_title, COUNT(guide_views.id) AS views FROM guides LEFT JOIN guide_views ON guide_views.guide_id = guides.id GROUP BY guides.id, guides.title ORDER BY guides.id ASC");
 $stmt->execute();
-$views = $stmt->get_result();
+$guides = $stmt->get_result();
 
 // Remove single view
 if (isset($_GET['remove_view'])) {
@@ -41,6 +41,7 @@ if (isset($_POST['remove_all_views'])) {
   <title>Manage Views</title>
   <link rel="icon" type="image/png" href="/public/images/favicon.png">
   <link rel="stylesheet" type="text/css" href="css/admin.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
 <?php include 'admin_sidebar.php'; ?>
@@ -49,40 +50,45 @@ if (isset($_POST['remove_all_views'])) {
   <div class="content">
     <h1>Manage Views</h1>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Guide ID</th>
-          <th>Guide Title</th>
-          <th>User ID</th>
-          <th>Username</th>
-          <th>View Time</th>
-          <th>Duration</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php while ($view = $views->fetch_assoc()): ?>
-          <tr>
-            <td><?= $view['guide_id'] ?></td>
-            <td><?= $view['guide_title'] ?></td>
-            <td><?= $view['user_id'] ?></td>
-            <td><?= $view['username'] ?></td>
-            <td><?= $view['view_time'] ?></td>
-            <td><?= $view['duration'] ?></td>
-            <td>
-              <a href="manage_views.php?remove_view=<?= $view['view_id'] ?>">Remove View</a> |
-              <a href="manage_views.php?remove_all_views_for_guide=<?= $view['guide_id'] ?>">Remove All Views for Guide</a>
-            </td>
-          </tr>
-        <?php endwhile; ?>
-      </tbody>
-    </table>
+    <?php while ($guide = $guides->fetch_assoc()): ?>
+      <div class="guide" data-guide-id="<?= $guide['guide_id'] ?>">
+        <h2><?= $guide['guide_title'] ?> (<?= $guide['views'] ?> views)</h2>
+        <div class="guide-views"></div>
+      </div>
+    <?php endwhile; ?>
 
     <form method="POST">
       <button type="submit" name="remove_all_views">Remove All Views</button>
     </form>
   </div>
+
+  <script>
+    $(document).ready(function() {
+      $('.guide').on('click', function() {
+        var $guide = $(this);
+        var guideId = $guide.data('guide-id');
+        var $guideViews = $guide.find('.guide-views');
+
+        // Check if the guide views have already been fetched
+        if ($guideViews.html()) {
+          // Toggle the visibility of the guide views
+          $guideViews.slideToggle();
+        } else {
+          // Fetch the guide views
+          $.ajax({
+            url: 'get_guide_views.php',
+            method: 'GET',
+            data: {guide_id: guideId},
+            success: function(data) {
+              $guideViews.html(data);
+              $guideViews.slideToggle();
+            }
+          });
+        }
+      });
+    });
+  </script>
+
 </main>
 </body>
 </html>

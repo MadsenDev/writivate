@@ -368,3 +368,59 @@ a:hover {
   color: #5a342a;
   text-decoration: none;
 }
+
+.guide {
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+  padding: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.guide h2 {
+  font-size: 18px;
+  margin: 0;
+  color: #333;
+}
+
+.guide-views {
+  display: none;
+  padding-top: 20px;
+  border-top: 1px solid #EEE;
+}
+
+.view {
+  padding: 10px;
+  border-bottom: 1px solid #EEE;
+}
+
+.view:last-child {
+  border-bottom: none;
+}
+
+.view h3 {
+  margin: 0;
+  color: #666;
+  font-size: 16px;
+}
+
+.view p {
+  margin: 5px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 20px;
+  color: #FFF;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
