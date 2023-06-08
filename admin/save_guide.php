@@ -10,6 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $category_id = $_POST['category'];
   $content = $_POST['content'];
   $creator_id = $_SESSION['user_id'];
+  // Get the full page checkbox value, convert to 0 or 1
+  $full_page = isset($_POST['full_page']) ? 1 : 0;
 
   // Check if a guide with the same title already exists
   $sql = "SELECT * FROM guides WHERE title = '$title'";
@@ -24,8 +26,8 @@ if (mysqli_num_rows($result) > 0) {
 }
 
   // Insert the guide into the database
-  $stmt = $conn->prepare("INSERT INTO guides (title, category_id, content, creator_id, created_at) VALUES (?, ?, ?, ?, NOW())");
-  $stmt->bind_param("sisi", $title, $category_id, $content, $creator_id);
+  $stmt = $conn->prepare("INSERT INTO guides (title, category_id, content, creator_id, full_page, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
+  $stmt->bind_param("sisii", $title, $category_id, $content, $creator_id, $full_page);
   echo "Before executing the statement.<br>";
   $stmt->execute();
   echo "After executing the statement.<br>";

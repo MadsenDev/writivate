@@ -88,7 +88,9 @@ $tag_stmt->execute();
 $tags = $tag_stmt->get_result();
 ?>
 <main>
-    <?php include 'sidebar.php'; ?>
+    <?php if (!isset($row['full_page']) || !$row['full_page']) {
+        include 'sidebar.php';
+    } ?>
     <div class="content">
 <div class="header-container">
 <h1><?php echo $title; ?></h1>

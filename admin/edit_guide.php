@@ -27,6 +27,7 @@
           $title = $row['title'];
           $category_id = $row['category_id'];
           $content = $row['content'];
+          $fullpage = $row['full_page'];
           
           // Fetch categories and generate options
           $stmt = $conn->prepare("SELECT categories.*, parent.name as parent_name FROM categories LEFT JOIN categories AS parent ON categories.parent_id = parent.id ORDER BY parent_id, name");
@@ -64,6 +65,11 @@
               $tags_string = rtrim($tags_string, ', ');
             ?>
                         <input type="text" id="guide-tags" name="tags" class="form-control" value="<?php echo $tags_string; ?>">
+          </div>
+          <!-- Full Page toggle -->
+          <div class="form-group">
+              <label for="full-page">Full Page:</label>
+              <input type="checkbox" id="full-page" name="full_page" <?php echo $fullpage ? 'checked' : ''; ?>>
           </div>
           <div class="form-group">
             <label for="guide-content">Content:</label>

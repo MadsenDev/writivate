@@ -41,6 +41,11 @@
             <label for="tags">Tags (separated by commas):</label>
             <input type="text" id="tags" name="tags" class="form-control">
           </div>
+          <!-- Full Page toggle -->
+          <div class="form-group">
+            <label for="full-page">Full Page:</label>
+            <input type="checkbox" id="full-page" name="full_page">
+          </div>
           <div class="form-group">
             <label for="guide-content">Content:</label>
             <textarea id="guide-content" name="content" class="form-control"></textarea>
