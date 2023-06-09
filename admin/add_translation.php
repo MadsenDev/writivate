@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.css">
 </head>
 <body>
-<?php //include 'admin_sidebar.php'; ?>
+<?php include 'admin_sidebar.php'; ?>
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
