@@ -91,13 +91,24 @@
                 $guide_title = $row['title'];
                 $category_name = $row['category_name'];
                 $author_username = $row['author_username'];
-
+            
+                // Check if there are translations for this guide
+                $translations_stmt = $conn->prepare("SELECT language FROM guide_translations WHERE guide_id = ?");
+                $translations_stmt->bind_param("i", $guide_id);
+                $translations_stmt->execute();
+                $translations_result = $translations_stmt->get_result();
+                $translations = [];
+                while ($translation_row = $translations_result->fetch_assoc()) {
+                    $translations[] = $translation_row['language'];
+                }
+                $translations_str = !empty($translations) ? implode(', ', $translations) : 'No translations';
+            
                 echo "<tr>";
                 echo "<td>$guide_id</td>";
                 echo "<td><a href=\"/guide.php?id=$guide_id\">$guide_title</a></td>";
                 echo "<td>$category_name</td>";
                 echo "<td>$author_username</td>";
-                echo "<td>";
+                echo "<td>$translations_str | "; // Display translations here
                 if (check_permission($user_rank_id, 'can_edit_guide')) {
                   echo "<a href=\"edit_guide.php?id=$guide_id\">Edit</a> | ";
                 }
@@ -107,7 +118,7 @@
                 }
                 echo "</td>";
                 echo "</tr>";
-              }
+            }
             } else {
               echo "Nothing found.";
             }
