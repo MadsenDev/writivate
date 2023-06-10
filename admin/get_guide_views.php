@@ -15,6 +15,12 @@ while ($view = $views->fetch_assoc()) {
   echo 'Username: ' . $view['username'] . '<br>';
   echo 'View Time: ' . $view['view_time'] . '<br>';
   echo 'Duration: ' . $view['duration'];
+  // Add a button to delete a single guide.
+  echo '<form method="GET">';
+  echo '<input type="hidden" name="guide_id" value="' . $guide_id . '">';
+  echo '<input type="hidden" name="view_id" value="' . $view['view_id'] . '">';
+  echo '<button type="submit" name="delete_view" class="btn btn-danger">Delete View</button>';
+  echo '</form>';
   echo '</p>';
 }
 ?>
