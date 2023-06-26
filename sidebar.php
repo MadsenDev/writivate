@@ -30,7 +30,7 @@ $most_viewed_content = $stmt->get_result();
   <ul>
     <?php while ($content = $most_viewed_content->fetch_assoc()): ?>
       <li>
-        <a href="/guide.php?id=<?= $content['id'] ?>"><?= $content['title'] ?>
+        <a href="guide.php?id=<?= $content['id'] ?>"><?= $content['title'] ?>
         <?php if ($show_views == '1'): ?>
           (<?= $content['view_count'] ?> views)
         <?php endif; ?>

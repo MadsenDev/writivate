@@ -92,7 +92,7 @@ echo "<h1>{$content_type_plural}</h1>";
 if (count($guides) > 0) {
     echo "<ul>";
     foreach ($guides as $guide) {
-        echo "<li><a href=\"/guide.php?id={$guide['id']}\">{$guide['title']}</a>";
+        echo "<li><a href=\"guide.php?id={$guide['id']}\">{$guide['title']}</a>";
 if (!empty($guide['category_name'])) {
     echo " (<em><a href='categories.php?id={$guide['category_id']}' style='color: darkgray;'>{$guide['category_name']}</a></em>)";
 }

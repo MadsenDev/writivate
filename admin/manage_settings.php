@@ -163,7 +163,7 @@ if (isset($_POST['update_settings'])) {
         <fieldset>
           <legend>Branding</legend>
           <label for="logo_url">Logo:</label>
-          <img src="<?php echo htmlspecialchars($settings['logo_url']); ?>" alt="Current logo" id="current-logo" style="max-width: 200px; max-height: 200px; margin-top: 10px;"><br>
+          <img src="../<?php echo htmlspecialchars($settings['logo_url']); ?>" alt="Current logo" id="current-logo" style="max-width: 200px; max-height: 200px; margin-top: 10px;"><br>
           <input type="file" id="logo_url" name="logo_url" accept="image/*">
         </fieldset>
 

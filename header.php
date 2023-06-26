@@ -15,7 +15,7 @@ if ($result->num_rows > 0) {
   $row = $result->fetch_assoc();
   $logo_url = $row['value'];
 } else {
-  $logo_url = "/public/images/logo.png"; // Default logo URL in case it's not found in the database
+  $logo_url = "public/images/logo.png"; // Default logo URL in case it's not found in the database
 }
 
 // Fetch parent categories and their subcategories
@@ -46,18 +46,18 @@ if ($result->num_rows > 0) {
 <header>
   <div class="header-container">
     <div class="logo">
-    <a href="/index.php"><img src="<?php echo htmlspecialchars($logo_url); ?>" alt="Wiki Logo"></a>
+    <a href="index.php"><img src="<?php echo htmlspecialchars($logo_url); ?>" alt="Wiki Logo"></a>
     </div>
     <nav class="categories">
       <ul>
         <?php while ($parent = $parent_categories->fetch_assoc()): ?>
           <li>
-            <a href="/categories.php?id=<?= $parent['id'] ?>"><?= $parent['name'] ?></a>
+            <a href="categories.php?id=<?= $parent['id'] ?>"><?= $parent['name'] ?></a>
             <?php $subcategories = fetch_subcategories($conn, $parent['id']); ?>
             <?php if ($subcategories->num_rows > 0): ?>
               <ul class="submenu">
                 <?php while ($sub = $subcategories->fetch_assoc()): ?>
-                  <li><a href="/categories.php?id=<?= $sub['id'] ?>"><?= $sub['name'] ?></a></li>
+                  <li><a href="categories.php?id=<?= $sub['id'] ?>"><?= $sub['name'] ?></a></li>
                 <?php endwhile; ?>
               </ul>
             <?php endif; ?>
@@ -68,13 +68,13 @@ if ($result->num_rows > 0) {
     <nav class="user-actions">
       <ul>
         <?php if (isset($_SESSION['user_id'])): ?>
-          <li><a href="/admin/index.php">Dashboard</a></li>
-          <li><a href="/profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
-          <li><a href="/auth/logout.php">Log Out</a></li>
+          <li><a href="admin/index.php">Dashboard</a></li>
+          <li><a href="profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a></li>
+          <li><a href="auth/logout.php">Log Out</a></li>
         <?php else: ?>
-          <li><a href="/auth/login.php">Login</a></li>
+          <li><a href="auth/login.php">Login</a></li>
           <?php if ($registration_enabled == 1): ?>
-            <li><a href="/auth/register.php">Register</a></li>
+            <li><a href="auth/register.php">Register</a></li>
           <?php endif; ?>
         <?php endif; ?>
       </ul>

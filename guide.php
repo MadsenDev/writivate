@@ -144,37 +144,6 @@ $tags = $tag_stmt->get_result();
 </main>
 <?php include 'footer.php'; ?>
 <script src="vendor/prism/prism.js"></script>
-<script>
-document.getElementById("printContent").addEventListener("click", function () {
-    const printWindow = window.open("", "_blank");
-    const content = document.querySelector(".content").cloneNode(true);
-    const hiddenElements = content.querySelectorAll(".hide-on-print");
-
-    hiddenElements.forEach(element => {
-        element.style.display = "none";
-    });
-
-    printWindow.document.write("<html><head><title>Print Content</title></head><body>");
-    printWindow.document.write(content.innerHTML);
-    printWindow.document.write("</body></html>");
-    printWindow.document.close();
-    printWindow.print();
-
-    printWindow.addEventListener("afterprint", function() {
-        printWindow.close();
-    });
-});
-
-document.getElementById("language-select").addEventListener("change", function () {
-    const language = this.value;
-    const urlParams = new URLSearchParams(window.location.search);
-    if (language) {
-        urlParams.set("language", language);
-    } else {
-        urlParams.delete("language");
-    }
-    window.location.search = urlParams.toString();
-});
-</script>
+<script src="guide.js"></script>
 </body>
 </html>

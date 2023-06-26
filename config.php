@@ -1,9 +1,9 @@
 <?php
 // Database configuration
-$host = getenv('DB_HOST');
-$db_user = getenv('DB_USER');
-$db_password = getenv('DB_PASSWORD');
-$db_name = getenv('DB_NAME');
+$host = 'localhost';
+$db_user = 'root';
+$db_password = 'cold1234';
+$db_name = 'wiki';
 
 // Create a connection
 $conn = new mysqli($host, $db_user, $db_password, $db_name);

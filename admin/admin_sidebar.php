@@ -26,12 +26,12 @@ $user_rank_id = get_user_rank_id($conn, $username);
 
 <aside class="sidebar">
   <div class="sidebar-header">
-    <a href="index.php"><img src="/public/images/logo.png" alt="Logo"></a>
+    <a href="index.php"><img src="../public/images/logo.png" alt="Logo"></a>
   </div>
   <nav class="sidebar-nav">
     <ul class="nav-list">
       <li>
-        <a href="/index.php">
+        <a href="../index.php">
           <i class="fas fa-folder"></i> View Site
         </a>
       </li>
