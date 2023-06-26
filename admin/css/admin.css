@@ -414,13 +414,13 @@ a:hover {
 
 button {
   padding: 10px 20px;
-  color: #FFF;
-  background-color: #007BFF;
+  color: #fff;
+  background-color: #1e4dbd;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #ba4194;
 }
