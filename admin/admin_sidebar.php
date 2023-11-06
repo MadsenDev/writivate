@@ -35,62 +35,46 @@ $user_rank_id = get_user_rank_id($conn, $username);
           <i class="fas fa-folder"></i> View Site
         </a>
       </li>
-      <?php if (check_permission($user_rank_id, 'can_manage_system_settings')) { ?>
       <li>
         <a href="manage_languages.php">
           <i class="fas fa-cogs"></i> Manage Languages
         </a>
       </li>
-      <?php } ?>
-      <?php if (check_permission($user_rank_id, 'can_manage_categories')) { ?>
       <li>
         <a href="manage_categories.php">
           <i class="fas fa-folder"></i> Manage Categories
         </a>
       </li>
-      <?php } ?>
-      <?php if (check_permission($user_rank_id, 'can_manage_ranks')) { ?>
       <li>
         <a href="manage_ranks.php">
           <i class="fas fa-users"></i> Manage Ranks
         </a>
       </li>
-      <?php } ?>
-      <?php if (check_permission($user_rank_id, 'can_manage_users')) { ?>
       <li>
         <a href="manage_users.php">
           <i class="fas fa-users"></i> Manage Users
         </a>
       </li>
-      <?php } ?>
-      <?php if (check_permission($user_rank_id, 'can_create_guide')) { ?>
       <li>
         <a href="manage_guides.php">
           <i class="fas fa-book"></i> Manage <?php echo htmlspecialchars($content_type_plural); ?>
         </a>
       </li>
-      <?php } ?>
-      <?php if (check_permission($user_rank_id, 'can_manage_suggestions')) { ?>
       <li>
         <a href="manage_suggestions.php">
           <i class="fas fa-comments"></i> Manage Suggestions
         </a>
       </li>
-      <?php } ?>
-      <?php if (check_permission($user_rank_id, 'can_manage_views')) { ?>
       <li>
         <a href="manage_views.php">
           <i class="fas fa-comments"></i> Manage Views
         </a>
       </li>
-      <?php } ?>
-      <?php if (check_permission($user_rank_id, 'can_manage_system_settings')) { ?>
       <li>
         <a href="manage_settings.php">
           <i class="fas fa-cogs"></i> Manage Settings
         </a>
       </li>
-      <?php } ?>
     </ul>
   </nav>
 
